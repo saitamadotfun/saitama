@@ -8,7 +8,6 @@ import {
   timestamp,
   uuid,
   uniqueIndex,
-  unique,
 } from "drizzle-orm/pg-core";
 
 import { payments } from "./payments";
@@ -46,15 +45,13 @@ export const sites = pgTable(
     name: text().notNull(),
     category: text({ enum: categories }).notNull(),
     template: uuid()
-      .references(() => templates.id)
+      .references(() => templates.id, { onDelete: "restrict" })
       .notNull(),
     payment: text().references(() => payments.id, { onDelete: "set null" }),
     workspace: uuid()
       .references(() => workspaces.id, { onDelete: "cascade" })
       .notNull(),
-    sync: uuid()
-      .references(() => collections.id)
-      .notNull(),
+    sync: uuid().references(() => collections.id, { onDelete: "set null" }),
     deleted: boolean().default(false).notNull(),
     metadata: json().$type<Partial<SiteMetadata>>().notNull(),
     deletedAt: timestamp(),

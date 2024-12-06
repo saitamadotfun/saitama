@@ -18,7 +18,10 @@ export type WorkspaceSettings = {
 export const workspaces = pgTable("workspaces", {
   id: uuid().defaultRandom().primaryKey().notNull(),
   name: text().notNull(),
-  logo: uuid().references(() => assets.id),
+  logo: uuid().references(() => assets.id, {
+    onDelete: "set null",
+    onUpdate: "cascade",
+  }),
   owner: uuid()
     .references(() => users.id, { onDelete: "cascade" })
     .notNull(),

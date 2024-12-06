@@ -21,7 +21,7 @@ export const templates = pgTable("templates", {
   name: text().notNull().unique(),
   description: text().notNull(),
   preview: uuid()
-    .references(() => assets.id)
+    .references(() => assets.id, { onDelete: "restrict", onUpdate: "cascade" })
     .notNull(),
   price: json().$type<Price>(),
   metadata: json().$type<TemplateMetadata>().notNull(),

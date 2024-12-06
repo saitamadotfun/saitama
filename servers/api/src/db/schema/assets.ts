@@ -7,7 +7,7 @@ export const assets = pgTable("assets", {
   uri: text().notNull(),
   type: text({ enum: ["image", "all", "non-image"] as const }).notNull(),
   user: uuid()
-    .references(() => users.id)
+    .references(() => users.id, { onDelete: "cascade" })
     .notNull(),
   metadata: json().default({}).notNull(),
   createdAt: timestamp().defaultNow().notNull(),

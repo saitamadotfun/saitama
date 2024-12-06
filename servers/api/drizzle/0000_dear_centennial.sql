@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS "sites" (
 	"template" uuid NOT NULL,
 	"payment" text,
 	"workspace" uuid NOT NULL,
-	"sync" uuid NOT NULL,
+	"sync" uuid,
 	"deleted" boolean DEFAULT false NOT NULL,
 	"metadata" json NOT NULL,
 	"deletedAt" timestamp,
@@ -132,7 +132,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "sites" ADD CONSTRAINT "sites_template_templates_id_fk" FOREIGN KEY ("template") REFERENCES "public"."templates"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "sites" ADD CONSTRAINT "sites_template_templates_id_fk" FOREIGN KEY ("template") REFERENCES "public"."templates"("id") ON DELETE restrict ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -150,13 +150,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "sites" ADD CONSTRAINT "sites_sync_collections_id_fk" FOREIGN KEY ("sync") REFERENCES "public"."collections"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "sites" ADD CONSTRAINT "sites_sync_collections_id_fk" FOREIGN KEY ("sync") REFERENCES "public"."collections"("id") ON DELETE set null ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "workspaces" ADD CONSTRAINT "workspaces_logo_assets_id_fk" FOREIGN KEY ("logo") REFERENCES "public"."assets"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "workspaces" ADD CONSTRAINT "workspaces_logo_assets_id_fk" FOREIGN KEY ("logo") REFERENCES "public"."assets"("id") ON DELETE set null ON UPDATE cascade;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -180,7 +180,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "assets" ADD CONSTRAINT "assets_user_users_id_fk" FOREIGN KEY ("user") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "assets" ADD CONSTRAINT "assets_user_users_id_fk" FOREIGN KEY ("user") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -210,7 +210,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "templates" ADD CONSTRAINT "templates_preview_assets_id_fk" FOREIGN KEY ("preview") REFERENCES "public"."assets"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "templates" ADD CONSTRAINT "templates_preview_assets_id_fk" FOREIGN KEY ("preview") REFERENCES "public"."assets"("id") ON DELETE restrict ON UPDATE cascade;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -222,7 +222,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "deployments" ADD CONSTRAINT "deployments_site_sites_id_fk" FOREIGN KEY ("site") REFERENCES "public"."sites"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "deployments" ADD CONSTRAINT "deployments_site_sites_id_fk" FOREIGN KEY ("site") REFERENCES "public"."sites"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

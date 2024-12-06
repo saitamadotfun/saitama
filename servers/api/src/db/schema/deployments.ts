@@ -5,7 +5,7 @@ import { sites } from "./sites";
 export const deployments = pgTable("deployments", {
   id: text().primaryKey().notNull(),
   site: uuid()
-    .references(() => sites.id)
+    .references(() => sites.id, { onDelete: "cascade" })
     .notNull()
     .unique(),
   status: text({

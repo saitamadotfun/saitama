@@ -1,5 +1,5 @@
 {
-  "id": "2f02c809-b0ed-4fc5-a4c8-892b1f9c22f9",
+  "id": "d82c48f6-e123-44ab-b697-c2c16480657d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -154,7 +154,7 @@
           "name": "sync",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "deleted": {
           "name": "deleted",
@@ -218,7 +218,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "restrict",
           "onUpdate": "no action"
         },
         "sites_payment_payments_id_fk": {
@@ -257,7 +257,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "set null",
           "onUpdate": "no action"
         }
       },
@@ -342,8 +342,8 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onDelete": "set null",
+          "onUpdate": "cascade"
         },
         "workspaces_owner_users_id_fk": {
           "name": "workspaces_owner_users_id_fk",
@@ -508,7 +508,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -789,8 +789,8 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onDelete": "restrict",
+          "onUpdate": "cascade"
         },
         "templates_user_users_id_fk": {
           "name": "templates_user_users_id_fk",
@@ -909,7 +909,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
