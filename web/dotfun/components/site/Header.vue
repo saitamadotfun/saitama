@@ -31,22 +31,7 @@ const templatePage = computed(() =>
       <div class="flex-1" />
       <div class="flex space-x-2 md:space-x-4">
         <button
-          v-if="templatePage"
-          class="btn space-x-2 bg-black/5 rounded md:px-4"
-          @click="showTemplateCreateDialog = true"
-        >
-          <div class="i-mdi:plus text-base lt-md:hidden" />
-          <span class="capitalize"> New Template </span>
-        </button>
-        <NuxtLink
-          v-else-if="workspaceId"
-          :href="format('/%/settings/', workspaceId)"
-          class="btn bg-black/5 rounded hidden md:px-4"
-        >
-          Invite Member
-        </NuxtLink>
-        <button
-          class="btn space-x-2 border border-black rounded md:px-4"
+          class="btn space-x-2 border border-black rounded md:px-4 hover:bg-black/2"
           @click="openCreateDialog = true"
         >
           <div class="i-mdi:plus text-base lt-md:hidden" />

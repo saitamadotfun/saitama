@@ -37,6 +37,7 @@ export const signInWithIdToken = (
           token: token.id,
           uuid: decodedIdToken.uid,
           email: decodedIdToken.email!,
+          avatar: decodedIdToken.picture,
           metadata: {},
         })
         .returning()

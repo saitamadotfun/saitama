@@ -28,7 +28,7 @@ definePageMeta({
             as="template"
           >
             <button
-              class="flex-1 flex items-center space-x-2 px-2 py-1 text-nowrap lt-md:min-w-30 lt-md:snap-center"
+              class="flex- flex items-center space-x-2 px-2 py-1 text-nowrap lt-md:snap-center"
               :class="
                 selected ? '!bg-black text-white rounded' : 'text-black/50'
               "

@@ -14,7 +14,7 @@ await useAsyncData(() => workspaceStore.getWorkspace(workspaceId.value!));
   <div>
     <Menu
       as="div"
-      class="relative z-10"
+      class="relative z-20"
     >
       <MenuButton
         v-if="workspace"

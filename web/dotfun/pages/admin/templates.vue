@@ -18,15 +18,27 @@ await useAsyncData(() => getTemplates());
 <template>
   <NuxtLayout>
     <main class="flex-1 flex flex-col space-y-4">
-      <div class="flex items-center space-x-4 px-4">
-        <SearchWithDetail
-          class="w-full md:max-w-1/2 xl:max-w-1/3"
-          name=""
-          placeholder="Search for a template"
-          title=""
-          :options="[]"
-          :get-text="(option) => option"
-        />
+      <div class="flex flex-col space-y-4 p-4">
+        <div class="flex items-center">
+          <h1 class="flex-1 text-xl font-bold md:text-2xl">Templates</h1>
+          <button
+            class="btn btn-primary rounded md:px-4"
+            @click="showTemplateCreateDialog = true"
+          >
+            <div class="i-mdi:plus text-base lt-md:hidden" />
+            <span class="capitalize"> New Template </span>
+          </button>
+        </div>
+        <div class="flex items-center space-x-4">
+          <SearchWithDetail
+            class="w-full md:max-w-1/2 xl:max-w-1/3"
+            name=""
+            placeholder="Search for a template"
+            title=""
+            :options="[]"
+            :get-text="(option) => option"
+          />
+        </div>
       </div>
       <div
         class="flex-1 flex flex-col max-w-screen max-h-screen overflow-scroll md:px-4"
@@ -61,8 +73,7 @@ await useAsyncData(() => getTemplates());
               </td>
               <td
                 v-if="template.price"
-                class='lt-md:text-end lt-md:!px-0'
-             
+                class="lt-md:text-end lt-md:!px-0"
               >
                 {{ formatPrice(template.price) }}
               </td>

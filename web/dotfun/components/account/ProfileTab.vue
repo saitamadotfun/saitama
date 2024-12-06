@@ -15,9 +15,9 @@ const authUrl = computed(() =>
   import.meta.server ? config.AUTH_BASE_URL : config.public.API_BASE_URL
 );
 
-const [firstName] = defineField("firstName");
-const [lastName] = defineField("lastName");
 const [email] = defineField("email");
+const [lastName] = defineField("lastName");
+const [firstName] = defineField("firstName");
 
 const onSubmit = handleSubmit((value) => {
   if (user)
@@ -30,10 +30,15 @@ const onSubmit = handleSubmit((value) => {
   <TabPanel
     v-if="user"
     as="form"
-    class="flex-1 flex flex-col space-y-4 lt-md:mx-4 lt-md:self-start lt-md:w-9/13"
+    class="flex-1 flex flex-col space-y-4 lt-md:mx-4 lt-md:self-start lt-sm:w-10/14 lt-md:w-10/12"
     @submit.prevent="onSubmit"
   >
     <div class="flex flex-col space-y-2">
+      <Avatar
+        :src="user.avatar"
+        :alt="user.lastName ?? user.firstName ?? user.email"
+      />
+
       <div class="flex space-x-4">
         <InputWithDetail
           is="input"

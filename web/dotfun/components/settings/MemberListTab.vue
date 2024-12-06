@@ -10,7 +10,7 @@ const members = computed(() => workspace.value.members);
 </script>
 
 <template>
-  <TabPanel class="flex flex-col space-y-8">
+  <TabPanel class="flex flex-col space-y-8 px-4">
     <div class="flex flex-col space-y-2">
       <div class="flex items-center space-x-2">
         <Avatar

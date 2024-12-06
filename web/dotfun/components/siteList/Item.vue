@@ -22,7 +22,7 @@ defineProps<{ site: Site }>();
       class="h-64 md:h-72 rounded"
     />
     <div
-      class="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black blur-sm"
+      class="absolute inset-0 bg-gradient-to-b from-black/0 to-black blur-sm"
     />
     <div
       class="absolute inset-x-0 bottom-0 flex flex-col z-5 text-white p-2 md:p-4"

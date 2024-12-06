@@ -50,7 +50,7 @@ const onSubmit = handleSubmit((values) => {
 <template>
   <TabPanel
     as="form"
-    class="flex flex-col space-y-4"
+    class="flex flex-col space-y-8 px-4"
     @submit.prevent="onSubmit"
   >
     <div class="flex flex-col space-y-4">
