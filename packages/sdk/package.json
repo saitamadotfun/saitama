@@ -1,0 +1,41 @@
+{
+  "name": "@saitamadotfun/sdk",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.cjs"
+    },
+    "./external": {
+      "types": "./dist/external.d.ts",
+      "import": "./dist/external.js",
+      "default": "./dist/external.cjs"
+    },
+    "./constants": {
+      "types": "./dist/constants.d.ts",
+      "import": "./dist/constants.js",
+      "default": "./dist/constants.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/constants.ts src/external.ts --format=esm,cjs --treeshake --dts-resolve",
+    "dev": "tsup src/index.ts src/constants.ts --format esm,cjs --treeshake --dts-resolve --watch"
+  },
+  "optionalDependencies": {
+    "@saitamadotfun/utils": "*",
+    "@saitamadotfun/types": "*"
+  },
+  "dependencies": {
+    "tlds": "^1.255.0",
+    "xior": "^0.6.1"
+  },
+  "files": [
+    "dist/*"
+  ]
+}

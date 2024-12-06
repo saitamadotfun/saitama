@@ -1,0 +1,57 @@
+{
+  "name": "dotfun",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --port=3000",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "overrides": {
+    "@vercel/nft": "^0.27.4"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@iconify-json/fa": "^1.2.0",
+    "@iconify-json/iconamoon": "^1.2.1",
+    "@iconify-json/material-symbols": "^1.2.7",
+    "@nuxt/fonts": "^0.10.0",
+    "@nuxt/image": "^1.8.1",
+    "@pinia/nuxt": "^0.7.0",
+    "@saitamadotfun/sdk": "*",
+    "@saitamadotfun/widgets": "*",
+    "@sentry/nuxt": "^8.40.0",
+    "@unocss/reset": "^0.63.4",
+    "@vueuse/core": "^11.1.0",
+    "@vueuse/nuxt": "^11.1.0",
+    "clsx": "^2.1.1",
+    "copy-to-clipboard": "^3.3.3",
+    "firebase": "^10.14.1",
+    "import-in-the-middle": "^1.11.2",
+    "moment": "^2.30.1",
+    "nuxt": "^3.13.2",
+    "nuxt-vuefire": "^1.0.4",
+    "pinia": "^2.2.6",
+    "sharp": "^0.33.5",
+    "vee-validate": "^4.14.6",
+    "vite-plugin-node-polyfills": "^0.22.0",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vue3-toastify": "^0.2.3",
+    "vuefire": "^3.2.0",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@iconify-json/fa-brands": "^1.2.0",
+    "@iconify-json/line-md": "^1.2.2",
+    "@iconify-json/mdi": "^1.2.1",
+    "@iconify-json/mingcute": "^1.2.1",
+    "@nuxtjs/fontaine": "^0.4.3",
+    "@unocss/nuxt": "^0.63.4",
+    "@unocss/preset-icons": "^0.63.4",
+    "unocss": "^0.63.4"
+  }
+}

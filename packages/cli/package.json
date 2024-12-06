@@ -1,0 +1,25 @@
+{
+  "name": "@saitamadotfun/cli",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "bin": "./dist/index.js",
+  "scripts": {
+    "build": "tsup index.ts --format=esm,cjs",
+    "dev": "tsup index.ts --format=esm,cjs --watch"
+  },
+  "optionalDependencies": {
+    "@saitamadotfun/sdk": "*",
+    "@saitamadotfun/utils": "*",
+    "@saitamadotfun/bunshi": "*"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "deepmerge": "^4.3.1",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security"
+  },
+  "files": [
+    "dist/*"
+  ]
+}

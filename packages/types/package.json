@@ -1,0 +1,13 @@
+{
+  "name": "@saitamadotfun/types",
+  "version": "0.0.0",
+  "private": true,
+  "types": "./index.ts",
+  "module": "./index.ts",
+  "main": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts"
+    }
+  }
+}

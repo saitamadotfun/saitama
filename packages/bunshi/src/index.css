@@ -1,0 +1,25 @@
+@import "@unocss/reset/tailwind.css";
+
+@unocss;
+
+input {
+  @apply !bg-transparent !outline-none !placeholder:text-black;
+}
+
+.input:focus-within {
+  @apply ring-4 ring-offset-1 ring-black/20 !border-black;
+}
+
+* {
+  @apply !outline-none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

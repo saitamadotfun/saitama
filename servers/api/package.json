@@ -1,0 +1,50 @@
+{
+  "name": "api",
+  "private": true,
+  "version": "0.0.0",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --treeshake",
+    "start": "node dist/index.cjs",
+    "dev": "nodemon --exec bun run src/index.ts",
+    "migrate": "drizzle-kit generate && drizzle-kit migrate",
+    "create-key": "npx --yes @fastify/secure-session > secret-key",
+    "studio": "drizzle-kit studio --port 7000 --verbose"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/passport-jwt": "^4.0.1",
+    "drizzle-kit": "^0.27.2",
+    "nodemon": "^3.1.7"
+  },
+  "peerDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.1",
+    "@fastify/cors": "^10.0.1",
+    "@fastify/jwt": "^9.0.1",
+    "@fastify/multipart": "^9.0.1",
+    "@fastify/passport": "^3.0.1",
+    "@fastify/secure-session": "^8.1.0",
+    "@saitamadotfun/sdk": "*",
+    "@saitamadotfun/utils": "*",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.36.4",
+    "drizzle-zod": "^0.5.1",
+    "fastify": "5.1.0",
+    "firebase-admin": "^12.7.0",
+    "fs": "^0.0.1-security",
+    "imagekit": "^5.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "passport-custom": "^1.1.1",
+    "passport-jwt": "^4.0.1",
+    "path": "^0.12.7",
+    "postgres": "^3.4.5",
+    "tldts": "^6.1.64",
+    "xior": "^0.6.1",
+    "zod": "^3.23.8"
+  }
+}

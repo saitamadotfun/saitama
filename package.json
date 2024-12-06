@@ -1,0 +1,78 @@
+{
+  "name": "saitamadotfun",
+  "version": "0.0.0-ui-fix",
+  "packageManager": "yarn@1.22.22",
+  "private": "true",
+  "bin": {
+    "cli": "packages/cli/dist/index.cjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    "./bunshi": {
+      "types": "./packages/bunshi/dist/index.d.ts",
+      "import": "./packages/bunshi/dist/index.js",
+      "require": "./packages/bunshi/dist/index.js"
+    },
+    "./bunshi/lib": {
+      "types": "./packages/bunshi/dist/lib/index.d.ts",
+      "import": "./packages/bunshi/dist/lib/index.js",
+      "require": "./packages/bunshi/dist/lib/index.cjs"
+    },
+    "./bunshi/utils": {
+      "types": "./packages/bunshi/dist/utils/index.d.ts",
+      "import": "./packages/bunshi/dist/utils/index.js",
+      "require": "./packages/bunshi/dist/utils/index.cjs"
+    },
+    "./bunshi/index.css": {
+      "default": "./packages/bunshi/dist/index.css"
+    },
+    "./utils": {
+      "types": "./packages/utils/dist/index.d.ts",
+      "import": "./packages/utils/dist/index.js",
+      "require": "./packages/utils/dist/index.cjs"
+    },
+    "./sdk": {
+      "types": "./packages/sdk/dist/index.d.ts",
+      "import": "./packages/sdk/dist/index.js",
+      "require": "./packages/sdk/dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "publish": "changeset publish",
+    "postinstall": "[ -f install.sh ] && chmod +x install.sh && ./install.sh || echo 'install.sh does not exist.'",
+    "prepublish": "[ -f turbo.json ] && turbo run build --filter=@saitamadotfun/bunshi || echo 'install.sh does not exist.'",
+    "clean": "rimraf -rf node_modules .turbo dist out */.turbo  */*/.turbo */*/.vercel */packages/dist */*/.nuxt */*/.output */*/node_modules */bun.lockb */*/bun.lockb"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.9",
+    "tsup": "^8.3.5",
+    "typescript": "latest",
+    "rimraf": "^6.0.1",
+    "turbo": "^2.1.2"
+  },
+  "workspaces": [
+    "web/**",
+    "servers/**",
+    "packages/**",
+    "templates/**",
+    "examples/**"
+  ],
+  "files": [
+    "install.sh",
+    "packages/sdk/dist/*",
+    "packages/cli/dist/*",
+    "packages/utils/dist/*",
+    "packages/bunshi/dist/*",
+    "packages/cli/package.json",
+    "packages/sdk/package.json",
+    "packages/utils/package.json",
+    "packages/bunshi/package.json"
+  ],
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}

@@ -1,0 +1,59 @@
+.animate-marquee {
+  animation: linear 15s infinite marquee;
+}
+
+.animate-inverse-marquee {
+  animation: linear 5s infinite inverse-marquee;
+}
+
+.animate-none {
+  animation: none;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes inverse-marquee {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+svg {
+  image-rendering: auto;
+}
+
+input,
+textarea {
+  @apply !outline-none bg-transparent;
+}
+
+.input .icon {
+  @apply text-black/75;
+}
+.input:focus-within {
+  @apply border-black ring-3 ring-black/20;
+}
+.input:focus-within .icon {
+  @apply text-black;
+}
+
+.dollar::before {
+  content: "$";
+  @apply font-mono;
+}
+
+.btn-outline {
+  @apply py-2 border-b border-black uppercase;
+}
