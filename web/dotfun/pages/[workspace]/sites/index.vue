@@ -18,7 +18,7 @@ await useAsyncData(async () => {
   <NuxtLayout>
     <main
       v-if="sites && sites.length > 0"
-      class="grid gap-4 p-4 lt-sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6"
+      class="grid gap-4 p-4 lt-sm:grid-cols-2 grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6"
     >
       <SiteListItem
         v-for="site in sites"

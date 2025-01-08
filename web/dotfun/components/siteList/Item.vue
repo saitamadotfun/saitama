@@ -16,9 +16,9 @@ defineProps<{ site: Site }>();
     <NuxtImg
       :src="site.template.preview.uri"
       :alt="site.template.preview.metadata?.alt"
-      width="256"
-      height="256"
-      fit="contain"
+      width="512"
+      height="512"
+      fit="fill"
       class="h-64 md:h-72 rounded"
     />
     <div

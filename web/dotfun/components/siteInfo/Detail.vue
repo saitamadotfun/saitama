@@ -12,7 +12,10 @@ const lastDeployment = computed(() => props.site.deployments.at(-1));
       <NuxtImg
         :src="site.template.preview.uri"
         :alt="site.template.preview.metadata?.alt"
-        class="w-40 h-56 bg-black rounded-md shadow"
+        width="512"
+        height="512"
+        fit="fill"
+        class="w-48 h-56 bg-black rounded-md shadow"
       />
     </div>
     <div class="flex-1">

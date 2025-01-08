@@ -67,7 +67,12 @@ const fileEl = ref<HTMLInputElement | null>(null);
         </div>
       </div>
       <div class="flex-1">
-        <div v-if="peak">{{ peak.name }}</div>
+        <div
+          v-if="peak"
+          class="line-clamp-1"
+        >
+          {{ peak.name }}
+        </div>
         <div v-else>{{ placeholder }}</div>
       </div>
       <div
@@ -89,7 +94,6 @@ const fileEl = ref<HTMLInputElement | null>(null);
               files = Array.from(target.files);
               isSubmitting = true;
               emit('change', files, (value: boolean) => {
-                files = null;
                 isSubmitting = value;
               })
             }

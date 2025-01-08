@@ -58,8 +58,10 @@ const emit = defineEmits<{
             "
           >
             <NuxtImg
-              fit="cover"
-              :src="template.preview.uri"
+              fit="fill"
+              src="/test.png"
+              width="512"
+              height="512"
               class="w-full h-full object-fill rounded-md"
             />
             <div

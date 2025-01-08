@@ -33,7 +33,7 @@ export function Style<T extends StyleSheet>({
 
   return (
     <>
-      <style>{style}</style>
+      {style.trim().length > 0 && <style>{style}</style>}
       {children}
     </>
   );

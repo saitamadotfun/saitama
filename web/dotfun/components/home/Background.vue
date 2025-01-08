@@ -1,10 +1,10 @@
 <template>
   <div class="absolute inset-0 overflow-hidden">
-    <img
+    <NuxtImg
       width="auto"
       height="auto"
       alt="Ripple background"
-      src="~/assets/illustrations/il_ripple.svg"
+      src="/illustrations/il_ripple.svg"
       class="absolute  w-full lt-md:h-lg object-cover md:w-full"
     />
   </div>

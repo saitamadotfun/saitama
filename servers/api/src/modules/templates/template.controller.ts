@@ -7,10 +7,18 @@ import type {
   selectUserSchema,
 } from "../../db/zod";
 
-export const createTemplate = (
+export const createTemplate = async (
   database: Database,
   values: Zod.infer<typeof insertTemplateSchema>
-) => database.insert(templates).values(values).returning().execute();
+) => {
+  const [template] = await database
+    .insert(templates)
+    .values(values)
+    .returning()
+    .execute();
+
+  return getTemplateById(database, template.id);
+};
 
 export const getTemplates = (database: Database) =>
   database.query.templates.findMany({
