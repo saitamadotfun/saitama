@@ -49,7 +49,7 @@ const emit = defineEmits<{
           :value="template"
         >
           <div
-            class="relative shrink-0 bg-black/10 h-56 shadow-sm shadow-black/25 rounded-md md:w-36 cursor-pointer"
+            class="relative shrink-0 bg-black/10 h-56 shadow-sm shadow-black/25 rounded-md cursor-pointer transition-all hover:scale-95 md:w-40"
             @click.prevent="
               () => {
                 selected = template;
