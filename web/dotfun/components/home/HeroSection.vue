@@ -7,11 +7,17 @@
         <div
           class="flex items-center space-x-2 border-2 border-green-500 pl-1 pr-4 py-1 rounded-full"
         >
-          <div class="bg-green-500 px-3 py-1 rounded-full animate-pulse">Live</div>
-          <div class="flex items-center space-x-4">
+          <div class="bg-green-500 px-3 py-1 rounded-full animate-pulse">
+            Live
+          </div>
+          <NuxtLink
+            target="_blank"
+            href="https://dexscreener.com/solana/4ltrv6y4chrrc2ysuncw1friunxyobpl1mmj2vgcmoon"
+            class="flex items-center space-x-4"
+          >
             <span>Trade Now</span>
             <div class="i-mdi:arrow-up rotate-45 text-lg" />
-          </div>
+          </NuxtLink>
         </div>
         <div class="flex flex-col text-center">
           <h1 class="text-2xl md:text-6xl lg:text-6xl">From idea to</h1>
