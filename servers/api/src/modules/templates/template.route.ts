@@ -16,7 +16,6 @@ export class TemplateRoute extends Route<Template> {
       .route({
         method: "GET",
         url: this.buildPath(),
-        preHandler: passport.authenticate(["jwt", "token"]),
         handler: catchRuntimeRouteError(this.getTemplatesRoute.bind(this)),
       })
       .route({
@@ -65,7 +64,7 @@ export class TemplateRoute extends Route<Template> {
           paymentLink = data;
         }
 
-        const [template] = await this.module.createTemplate({
+        return this.module.createTemplate({
           ...body,
           user: request.user!.id,
           metadata: {
@@ -73,8 +72,6 @@ export class TemplateRoute extends Route<Template> {
             bumfiPaymentLink: paymentLink ? { id: paymentLink.id } : null,
           },
         });
-
-        return template;
       });
   }
 

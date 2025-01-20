@@ -30,6 +30,7 @@ const { errors, isSubmitting, defineField, handleSubmit, handleReset } =
         framework: "",
         tags: "",
         categories: "",
+        previewURL: "",
       },
     },
     validationSchema: object({
@@ -43,6 +44,7 @@ const { errors, isSubmitting, defineField, handleSubmit, handleReset } =
         framework: string().required("Framework is a required field"),
         repo: string().required("Repo is a required field"),
         tags: string().required("Tags is a required field"),
+        previewURL: string().url().required("Preview URL is a required field"),
         categories: string().required("Categories is a required field"),
       }),
     }),
@@ -56,6 +58,7 @@ const [repo] = defineField("metadata.repo");
 const [tags] = defineField("metadata.tags");
 const [framework] = defineField("metadata.framework");
 const [categories] = defineField("metadata.categories");
+const [previewURL] = defineField("metadata.previewURL");
 
 const onSubmit = handleSubmit(({ preview, ...data }) => {
   return api.asset
@@ -198,6 +201,16 @@ const onSubmit = handleSubmit(({ preview, ...data }) => {
                 title="Tags"
                 description="Tags seperated with comma"
                 placeholder="Token Launch"
+              />
+            </InputWithError>
+            <InputWithError :error="errors['metadata.previewURL']">
+              <InputWithDetail
+                v-model="previewURL"
+                is="input"
+                name="previewURL"
+                title="Preview URL"
+                description="Live preview url"
+                placeholder="Preview URL"
               />
             </InputWithError>
           </div>

@@ -10,7 +10,6 @@ export default defineNuxtRouteMiddleware(async () => {
   if (import.meta.prerender) return;
 
   await userStore.getUser().catch((error) => {
-    console.error(error);
     authToken.value = null;
     return null;
   });

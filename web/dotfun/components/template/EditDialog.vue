@@ -28,6 +28,7 @@ const { errors, isSubmitting, defineField, handleSubmit, setFieldValue } =
         type: props.template.metadata.type,
         framework: props.template.metadata.framework,
         tags: props.template.metadata.tags.join(","),
+        previewURL: props.template.metadata.previewURL,
         categories: props.template.metadata.categories.join(","),
       },
     },
@@ -42,6 +43,7 @@ const { errors, isSubmitting, defineField, handleSubmit, setFieldValue } =
         framework: string().required("Framework is a required field"),
         repo: string().required("Repo is a required field"),
         tags: string().required("Tags is a required field"),
+        previewURL: string().url().required("Preview URL is a required field"),
         categories: string().required("Categories is a required field"),
       }),
     }),
@@ -55,6 +57,7 @@ const [repo] = defineField("metadata.repo");
 const [tags] = defineField("metadata.tags");
 const [framework] = defineField("metadata.framework");
 const [categories] = defineField("metadata.categories");
+const [previewURL] = defineField("metadata.previewURL");
 
 const onSubmit = handleSubmit(({ preview, ...data }) => {
   return updateTemplate(props.template.id, {
@@ -196,6 +199,16 @@ const onPreviewSubmit = (file: File) => {
                 title="Tags"
                 description="Tags seperated with comma"
                 placeholder="Token Launch"
+              />
+            </InputWithError>
+            <InputWithError :error="errors['metadata.previewURL']">
+              <InputWithDetail
+                v-model="previewURL"
+                is="input"
+                name="previewURL"
+                title="Preview URL"
+                description="Live preview url"
+                placeholder="Preview URL"
               />
             </InputWithError>
           </div>

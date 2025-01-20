@@ -17,6 +17,7 @@ defineRouteRules({
           <HomeMarquee class="z-20" />
         </div>
       </div>
+    <HomeFeaturedTemplates />
       <HomeTestimonies />
       <HomeFaq />
       <LayoutFooter />

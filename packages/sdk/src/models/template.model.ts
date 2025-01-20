@@ -8,6 +8,7 @@ export type TemplateMetadata = {
   framework: string;
   tags: string[];
   categories: string[];
+  previewURL?: string;
   bumfiPaymentLink?: {
     id: string;
   };

@@ -5,9 +5,9 @@
         class="flex-1 flex flex-col justify-center items-center space-y-4 z-50 xl:absolute xl:inset-x-0 xl:inset-t-48 xl:space-y-8"
       >
         <div
-          class="flex items-center space-x-2 border-2 border-green-500 pl-1 pr-4 py-1 rounded-full"
+          class="flex items-center space-x-2 border-2 border-black pl-1 pr-4 py-1 rounded-full"
         >
-          <div class="bg-green-500 px-3 py-1 rounded-full animate-pulse">
+          <div class="bg-black text-white px-3 py-1 rounded-full">
             Live
           </div>
           <NuxtLink

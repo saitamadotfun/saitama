@@ -38,6 +38,7 @@ export const templateMetadataSchema = object({
   framework: literal("nextjs"),
   tags: array(string()),
   categories: array(string()),
+  previewURL: string().nullable().optional(),
   bumfiPaymentLink: object({ id: string() }).nullable().optional(),
 });
 
