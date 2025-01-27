@@ -13,7 +13,7 @@ export type TemplateMetadata = {
   framework: Framework;
   tags: string[];
   categories: string[];
-  previewURL?: string;
+  previewURL?: string | null;
   bumfiPaymentLink?: Pick<PaymentLink, "id"> | null;
 };
 
