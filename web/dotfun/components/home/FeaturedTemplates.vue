@@ -3,7 +3,8 @@ const templateStore = useTemplate();
 
 const templates = computed(() => templateStore.all);
 
-useAsyncData(() => templateStore.getTemplates());
+const { data } = await useAsyncData(() => templateStore.getTemplates());
+console.dir(JSON.stringify(data.value, undefined, 2));
 </script>
 <template>
   <div class="flex flex-col space-y-2">
