@@ -1,8 +1,8 @@
 {
   "name": "saitamadotfun",
-  "version": "0.0.0-ui-fix",
-  "packageManager": "yarn@1.22.22",
+  "version": "0.0.1-ui-fix",
   "private": "true",
+  "packageManager": "yarn@1.22.22",
   "bin": {
     "cli": "packages/cli/dist/index.cjs"
   },
@@ -42,7 +42,6 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "publish": "changeset publish",
     "postinstall": "[ -f install.sh ] && chmod +x install.sh && ./install.sh || echo 'install.sh does not exist.'",
     "prepublish": "[ -f turbo.json ] && turbo run build --filter=@saitamadotfun/bunshi || echo 'install.sh does not exist.'",
     "clean": "rimraf -rf node_modules .turbo dist out */.turbo  */*/.turbo */*/.vercel */packages/dist */*/.nuxt */*/.output */*/node_modules */bun.lockb */*/bun.lockb"

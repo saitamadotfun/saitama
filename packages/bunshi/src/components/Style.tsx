@@ -33,7 +33,7 @@ export function Style<T extends StyleSheet>({
 
   return (
     <>
-      {style.trim().length > 0 && <style>{style}</style>}
+      {style.replace(/\s+/, "").trim().length > 0 && <style>{style}</style>}
       {children}
     </>
   );
