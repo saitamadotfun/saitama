@@ -87,7 +87,7 @@ export const getSitesByUser = async (
         template: {
           with: {
             preview: true,
-          }
+          },
         },
         deployments: true,
         payment: true,
@@ -110,8 +110,13 @@ export const getSiteByUserAndId = async (
 
   return database.query.sites
     .findFirst({
-      where: or(
-        ...userWorkspaces.map((workspace) => eq(sites.workspace, workspace.id))
+      where: and(
+        eq(sites.id, site),
+        or(
+          ...userWorkspaces.map((workspace) =>
+            eq(sites.workspace, workspace.id)
+          )
+        )
       ),
       with: {
         domains: {
@@ -125,7 +130,7 @@ export const getSiteByUserAndId = async (
         template: {
           with: {
             preview: true,
-          }
+          },
         },
         deployments: true,
         payment: true,
