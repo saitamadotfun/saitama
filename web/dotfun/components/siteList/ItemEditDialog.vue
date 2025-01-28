@@ -7,7 +7,7 @@ import {
   DialogOverlay,
   DialogTitle,
 } from "@headlessui/vue";
-import { string } from "yup";
+import { mixed, object, string } from "yup";
 import { toast } from "vue3-toastify";
 
 const props = defineProps<{ site: Site }>();
@@ -28,10 +28,17 @@ const { isSubmitting, defineField, handleSubmit, errors } = useForm({
       },
     },
   },
-  validationSchema: {
+  validationSchema: object({
     name: string().required(),
-    description: string().required(),
-  },
+    metadata: object({
+      title: string().required(),
+      description: string().required(),
+      settings: object({
+        favicon: mixed(),
+        preview: mixed(),
+      }),
+    }).required(),
+  }),
 });
 
 const [name] = defineField("name");
@@ -63,11 +70,11 @@ const updateFile = (files: File[], key: "favicon" | "socialPreview") => {
     });
 };
 
-const onSubmit = handleSubmit((value) =>
-  updateSite(props.site.id, value)
+const onSubmit = handleSubmit((value) => {
+  return updateSite(props.site.id, value)
     .then(() => toast.success("Site info updated successfully"))
-    .catch(() => toast.error("Oops! an unexpected error occur, try again."))
-);
+    .catch(() => toast.error("Oops! an unexpected error occur, try again."));
+});
 </script>
 <template>
   <Dialog
@@ -159,7 +166,8 @@ const onSubmit = handleSubmit((value) =>
           </div>
           <button
             :disabled="isSubmitting"
-            class="btn btn-primary py-3 rounded"
+            class="!btn !btn-primary py-3 rounded"
+            type="submit"
           >
             <div
               v-if="isSubmitting"

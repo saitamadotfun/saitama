@@ -32,10 +32,12 @@ export class Api {
   constructor(
     baseURL: string,
     accessToken?: string | null,
-    keyword: string = "Bearer"
+    xiorConfig?: XiorInstance['config'],
+    keyword: string = "Bearer",
   ) {
     this.xior = xior.create({
       baseURL,
+      ...xiorConfig,
       headers: {
         Authorization: keyword + " " + accessToken,
       },

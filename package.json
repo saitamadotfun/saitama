@@ -1,6 +1,6 @@
 {
   "name": "saitamadotfun",
-  "version": "0.0.1-ui-fix",
+  "version": "0.0.2-ui-fix",
   "private": "true",
   "packageManager": "yarn@1.22.22",
   "bin": {

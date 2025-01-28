@@ -8,18 +8,19 @@ const siteState = useSite();
 const route = useRoute();
 
 const id = computed(() => route.params.site as string);
-const site = computed(() => siteState.get(id.value));
 
 onMounted(() => siteState.ping(id.value));
 
-await useAsyncData(async () => {
+const { data } = await useAsyncData(async () => {
   return siteState.getSite(id.value);
 });
+
+const site = computed(() => siteState.get(id.value) ?? data.value);
 
 if (site.value)
   useSeoMeta({
     title: site.value.name,
-    description: site.value.description,
+    description: site.value.metadata.description,
     ogImage: site.value.template.preview.uri,
   });
 </script>
@@ -31,7 +32,7 @@ if (site.value)
         class="flex flex-col space-y-8 px-4 md:self-center"
       >
         <SiteInfoDetail :site="site" />
-        <SiteInfoDomainList :domains="site.domains"  />
+        <SiteInfoDomainList :domains="site.domains" />
       </div>
     </div>
   </NuxtLayout>

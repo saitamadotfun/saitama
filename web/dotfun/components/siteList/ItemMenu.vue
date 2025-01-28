@@ -15,6 +15,7 @@ const showEditSiteDialog = ref(false);
 const { api } = useApi();
 const siteState = useSite();
 const siteArchiveState = useSiteArchive();
+const workspace = useWorkspaceId();
 
 const menuItems = props.site.deleted
   ? ([
@@ -65,7 +66,7 @@ const onAction = (action: (typeof menuItems)[number]["action"]) => {
       showDeleteDialog.value = true;
       break;
     case "new-tab":
-      window.open(format("sites/%/", props.site.id));
+      window.open(format("/%/sites/%/", workspace.value, props.site.id));
       break;
     case "open-editor":
       window.open(

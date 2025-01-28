@@ -15,7 +15,7 @@ const lastDeployment = computed(() => props.site.deployments.at(-1));
         width="512"
         height="512"
         fit="fill"
-        class="w-48 h-56 bg-black rounded-md shadow"
+        class="w-48 bg-black rounded-md shadow lt-md:size-40  md:h-56"
       />
     </div>
     <div class="flex-1">
