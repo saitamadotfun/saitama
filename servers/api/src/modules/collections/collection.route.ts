@@ -9,11 +9,27 @@ export class CollectionRoute extends Route<Collection> {
 
   readonly registerRoutes = () => {
     this.fastify.route({
-      method: "PATCH",
+      method: "GET",
       url: this.buildPath(":id"),
-      handler: catchRuntimeRouteError(this.updateRoute.bind(this)),
+      handler: catchRuntimeRouteError(this.getCollectionRoute.bind(this)),
     });
   };
+
+  private getCollectionRoute(
+    request: FastifyRequest<{
+      Params: Pick<Zod.infer<typeof selectCollectionSchema>, "id">;
+      Body: Zod.infer<typeof insertCollectionSchema>;
+    }>
+  ) {
+    return selectCollectionSchema
+      .pick({ id: true })
+      .parseAsync(request.params)
+      .then(async (params) => {
+        const collection = await this.module.getCollectionById(params.id);
+        if (collection) return collection;
+        throw new StatusError(404, { message: "collection with id not found" });
+      });
+  }
 
   private updateRoute(
     request: FastifyRequest<{
@@ -34,7 +50,9 @@ export class CollectionRoute extends Route<Collection> {
               body
             );
             if (collection) return collection;
-            throw new StatusError(404, { message: "collection not found" });
+            throw new StatusError(404, {
+              message: "collection with id not found",
+            });
           })
       );
   }

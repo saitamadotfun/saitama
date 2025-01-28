@@ -11,6 +11,16 @@ export const createCollection = (
   values: Zod.infer<typeof insertCollectionSchema>
 ) => database.insert(collections).values(values).returning().execute();
 
+export const getCollectionById = (
+  database: Database,
+  id: Zod.infer<typeof selectCollectionSchema>["id"]
+) =>
+  database.query.collections
+    .findFirst({
+      where: eq(collections.id, id),
+    })
+    .execute();
+
 export const updateCollectionById = (
   database: Database,
   id: Zod.infer<typeof selectCollectionSchema>["id"],

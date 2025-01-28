@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { Strategy } from "passport-custom";
 
 import type { Database } from "../../db";
-import { tokens, users } from "../../db/schema";
+import { tokens, users, workspaces } from "../../db/schema";
 
 export const TokenStrategy = (database: Database) => {
   return new Strategy(async (request, callback) => {
@@ -22,6 +22,19 @@ export const TokenStrategy = (database: Database) => {
           });
 
           if (user) return callback(null, user);
+          else {
+            const workspace = await database.query.workspaces.findFirst({
+              where: eq(workspaces.token, token.id),
+              with: {
+                owner: true,
+              },
+              columns: {
+                owner: true,
+              },
+            });
+
+            if (workspace) return callback(null, workspace.owner);
+          }
         }
       }
 

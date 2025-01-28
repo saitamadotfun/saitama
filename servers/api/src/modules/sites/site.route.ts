@@ -248,7 +248,7 @@ export class SiteRoute extends Route<Site> {
 
           if (site) {
             const [sync] = await this.module.collection.updateCollectionById(
-              site.sync,
+              site.sync!,
               body
             );
             return { ...site, sync };

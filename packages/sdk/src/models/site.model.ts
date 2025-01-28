@@ -4,7 +4,6 @@ import type { Domain } from "./domain.model";
 import type { Payment } from "./payment.model";
 import type { Template } from "./template.model";
 import type { Deployment } from "./deployment.model";
-import type { Collection } from "./collection.model";
 
 export type SiteMetadata = {
   title: string;
@@ -33,7 +32,7 @@ export type Site = {
   user: User;
   template: Template;
   payment: Payment;
-  sync: Collection;
+  sync: string;
   domains: Domain[];
   deployments: Deployment[];
   metadata: SiteMetadata;

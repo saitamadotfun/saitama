@@ -19,14 +19,16 @@ import { AuthRoute } from "./auth/auth.route";
 import { UserRoute } from "./users/user.route";
 import { SiteRoute } from "./sites/site.route";
 import { AssetRoute } from "./assets/asset.route";
+import { Payment } from "./payments/payment.module";
 import { DomainRoute } from "./domains/domain.route";
 import { MemberRoute } from "./members/member.route";
+import { PaymentRoute } from "./payments/payment.route";
 import { WebhookRoute } from "./webhooks/webhook.route";
 import { TemplateRoute } from "./templates/template.route";
+import { Collection } from "./collections/collection.module";
 import { WorkspaceRoute } from "./workspaces/workspace.route";
 import { DeploymentRoute } from "./deployments/deployment.route";
-import { PaymentRoute } from "./payments/payment.route";
-import { Payment } from "./payments/payment.module";
+import { CollectionRoute } from "./collections/collection.route";
 
 export default class Module {
   readonly auth: Auth;
@@ -39,6 +41,7 @@ export default class Module {
   readonly payment: Payment;
   readonly template: Template;
   readonly workspace: Workspace;
+  readonly collection: Collection;
   readonly deployment: Deployment;
 
   constructor(
@@ -50,6 +53,7 @@ export default class Module {
   ) {
     this.user = new User(this.database);
     this.member = new Member(this.database);
+    this.collection = new Collection(this.database);
 
     this.asset = new Asset(this.imagekit, this.database);
 
@@ -76,6 +80,7 @@ export default class Module {
       new TemplateRoute(this.template, this.fastify),
       new WorkspaceRoute(this.workspace, this.fastify),
       new DeploymentRoute(this.deployment, this.fastify),
+      new CollectionRoute(this.collection, this.fastify),
     ];
     routes.map((route) => route.registerRoutes());
   }
