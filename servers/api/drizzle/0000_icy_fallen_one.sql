@@ -22,10 +22,11 @@ CREATE TABLE "users" (
 --> statement-breakpoint
 CREATE TABLE "coins" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"mint" text,
+	"mint" text NOT NULL,
 	"name" text NOT NULL,
 	"ticker" text NOT NULL,
 	"logo" text NOT NULL,
+	"isNative" boolean DEFAULT false NOT NULL,
 	"decimals" integer NOT NULL,
 	"network" uuid NOT NULL,
 	"creator" text,
@@ -76,8 +77,8 @@ CREATE TABLE "payments" (
 	"wallet" uuid NOT NULL,
 	"status" text DEFAULT 'pending' NOT NULL,
 	"metadata" json DEFAULT 'null'::json,
-	"createdAt" timestamp DEFAULT now() NOT NULL,
-	"updatedAt" timestamp DEFAULT now() NOT NULL
+	"createdAt" timestamp NOT NULL,
+	"updatedAt" timestamp NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "webhooks" (
