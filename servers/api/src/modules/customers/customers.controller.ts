@@ -2,7 +2,7 @@ import type { z } from "zod";
 import { and, eq, type SQL } from "drizzle-orm";
 
 import type { Database } from "../../db";
-import { customers } from "../../db/schema";
+import { customers, wallets } from "../../db/schema";
 import type { insertCustomerSchema, selectCustomerSchema } from "../../db/zod";
 
 export const createCustomer = (
@@ -27,6 +27,23 @@ export const getCustomersByAppWhere = (
   db.query.customers
     .findMany({
       where: and(eq(customers.app, app), where),
+      with: {
+        wallets: {
+          where: eq(wallets.generated, false),
+          with: {
+            network: {
+              columns: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+          columns: {
+            id: true,
+            metadata: true,
+          },
+        },
+      },
     })
     .execute();
 
@@ -38,6 +55,23 @@ export const getCustomerByAppAndId = (
   db.query.customers
     .findFirst({
       where: and(eq(customers.id, id), eq(customers.app, app)),
+      with: {
+        wallets: {
+          where: eq(wallets.generated, false),
+          with: {
+            network: {
+              columns: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+          columns: {
+            id: true,
+            metadata: true,
+          },
+        },
+      },
     })
     .execute();
 

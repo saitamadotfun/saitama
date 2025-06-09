@@ -1,4 +1,4 @@
-import { array, type z } from "zod";
+import { array, object, type z } from "zod";
 import passport from "@fastify/passport";
 import { format } from "@saitamafun/shared";
 import zodToJsonSchema from "zod-to-json-schema";
@@ -7,7 +7,13 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "../../instances";
 import { RequestError } from "../../error";
 import { withUserGuard } from "../../guards";
-import { insertCustomerSchema, selectCustomerSchema } from "../../db/zod";
+import { customerSchema } from "./customer.schema";
+import {
+  insertCustomerSchema,
+  selectCustomerSchema,
+  selectNetworkSchema,
+  selectWalletSchema1,
+} from "../../db/zod";
 import {
   createCustomer,
   deleteCustomerByAppAndId,
@@ -131,7 +137,13 @@ export default function registerCustomerRoutes(fastify: FastifyInstance) {
         description:
           "This resource is to retrieve information about all customers.",
         response: {
-          200: zodToJsonSchema(array(selectCustomerSchema)),
+          200: zodToJsonSchema(array(customerSchema), {
+            definitions: {
+              selectWalletSchema1,
+              customerSchema,
+              selectNetworkSchema,
+            },
+          }),
         },
       },
     })
@@ -145,7 +157,16 @@ export default function registerCustomerRoutes(fastify: FastifyInstance) {
         description:
           "This resource is to retrieve information about a single customer.",
         response: {
-          200: zodToJsonSchema(selectCustomerSchema),
+          200: zodToJsonSchema(
+            selectCustomerSchema.and(
+              object({
+                wallets: array(
+                  selectWalletSchema1.pick({ id: true, metadata: true })
+                ),
+              })
+            ),
+            { definitions: { selectWalletSchema1 } }
+          ),
         },
       },
     })

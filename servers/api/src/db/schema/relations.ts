@@ -57,6 +57,10 @@ export const walletsRelations = relations(wallets, ({ one }) => ({
     fields: [wallets.app],
     references: [apps.id],
   }),
+  customer: one(customers, {
+    fields: [wallets.customer],
+    references: [customers.id],
+  }),
   network: one(networks, {
     fields: [wallets.network],
     references: [networks.id],
@@ -88,4 +92,5 @@ export const paymentRelations = relations(payments, ({ one }) => ({
 
 export const customersRelations = relations(customers, ({ many }) => ({
   payments: many(payments),
+  wallets: many(wallets),
 }));
