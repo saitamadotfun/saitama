@@ -1,16 +1,19 @@
 import type { z } from "zod";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, isNull, SQL } from "drizzle-orm";
 
 import type { Database } from "../../db";
 import { networks } from "../../db/schema";
 import type { selectNetworkSchema } from "../../db/zod";
 
-export const getNetworks = (db: Database) =>
+export const getNetworksAndWhere = <T extends SQL<unknown>>(
+  db: Database,
+  where?: T
+) =>
   db.query.networks
     .findMany({
       with: {
         coins: {
-          where: and(isNull(networks.creator)),
+          where: and(isNull(networks.creator), where),
         },
         // subchains: {
         //   columns: {

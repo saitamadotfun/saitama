@@ -12,6 +12,7 @@ import {
   insertCustomerSchema,
   selectCustomerSchema,
   selectNetworkSchema,
+  selectWalletSchema,
   selectWalletSchema1,
 } from "../../db/zod";
 import {
@@ -30,12 +31,10 @@ const createCustomerRoute = (
       .omit({ app: true })
       .parseAsync(request.body)
       .then(async (body) => {
-        const [customer] = await createCustomer(db, {
+        return createCustomer(db, {
           ...body,
           app: user.app.id,
         });
-
-        return customer;
       })
   );
 
@@ -123,7 +122,11 @@ export default function registerCustomerRoutes(fastify: FastifyInstance) {
         description: "This resource is to create a unique customer.",
         body: zodToJsonSchema(insertCustomerSchema.omit({ app: true })),
         response: {
-          201: zodToJsonSchema(selectCustomerSchema),
+          201: zodToJsonSchema(
+            selectCustomerSchema.and(
+              object({ wallets: array(selectWalletSchema) })
+            )
+          ),
         },
       },
     })

@@ -19,7 +19,7 @@ export const wallets = pgTable(
     app: uuid()
       .references(() => apps.id, { onDelete: "cascade" })
       .notNull(),
-    customer: uuid().references(() => customers.id),
+    customer: uuid().references(() => customers.id, { onDelete: "cascade" }),
     metadata: json(),
     address: text().notNull(),
     generated: boolean().default(false).notNull(),

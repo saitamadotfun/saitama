@@ -1,30 +1,26 @@
-import { eq } from "drizzle-orm";
-import { array, type z } from "zod";
-import { HDNodeWallet } from "ethers";
-import { web3 } from "@coral-xyz/anchor";
+import { array, object, type z } from "zod";
 import passport from "@fastify/passport";
 import { format } from "@saitamafun/shared";
 import zodToJsonSchema from "zod-to-json-schema";
 import type { FastifyInstance, FastifyRequest } from "fastify";
 
 import { getEnv } from "../../env";
-import { wallets } from "../../db/schema";
+import { db } from "../../instances";
 import { RequestError } from "../../error";
 import type { chains } from "../../config";
-import { encrypt } from "../../core/secret";
 import { withUserGuard } from "../../guards";
 import { getWallet } from "../../core/wallet";
-import { db, secretKey } from "../../instances";
 import { getNetworkById } from "../networks/networks.controller";
 import {
   insertWalletSchema,
+  selectNetworkSchema,
   selectWalletSchema,
   selectWalletSchema1,
 } from "../../db/zod";
 import {
   createWallet,
+  createWalletsByAppAndCustomer,
   deleteWalletByAppAndId,
-  getWalletByAppWhere,
   getWalletsByAppWhere,
   updateWalletByAppAndId,
 } from "./wallet.controller";
@@ -44,48 +40,18 @@ const createWalletRoute = async (
 
         const network = await getNetworkById(db, body.network);
         if (network) {
-          if (body.customer) {
-            wallet = await getWalletByAppWhere(
+          if (body.customer)
+            wallet = await createWalletsByAppAndCustomer(
               db,
               user.app.id,
-              eq(wallets.network, network.id)
+              body.customer,
+              network.id
             );
-
-            if (wallet) return wallet;
-            else {
-              let address, publicKey;
-
-              if (network.name === "solana") {
-                const keypair = web3.Keypair.generate();
-                publicKey = keypair.publicKey;
-                address = encrypt(secretKey, keypair.secretKey.toBase64());
-              } else if (network.name === "ethereum") {
-                const keypair = HDNodeWallet.createRandom();
-                publicKey = keypair.publicKey;
-                address = encrypt(secretKey, keypair.privateKey);
-              }
-
-              if (address && publicKey)
-                [wallet] = await createWallet(db, {
-                  ...body,
-                  generated: false,
-                  address,
-                  app: request.user!.app!.id,
-                  metadata: {
-                    publicKey: publicKey,
-                  },
-                });
-              else
-                throw new RequestError(
-                  400,
-                  format("network=% not supported", body.network)
-                );
-            }
-          } else {
+          else {
             if (body.address)
               [wallet] = await createWallet(db, {
                 ...body,
-                app: request.user!.app!.id,
+                app: user.app.id,
                 address: body.address,
               });
             else {
@@ -97,13 +63,16 @@ const createWalletRoute = async (
                 ...body,
                 address,
                 generated: true,
-                app: user.app!.id,
+                app: user.app.id,
                 metadata: { index },
               });
             }
           }
 
-          return selectWalletSchema.parseAsync(wallet);
+          return {
+            ...(await selectWalletSchema.parseAsync(wallet)),
+            network: { id: network.id, name: network.name },
+          };
         } else
           throw new RequestError(
             404,
@@ -181,7 +150,9 @@ export default function registerWalletRoutes(fastify: FastifyInstance) {
             .omit({ app: true, generated: true })
         ),
         response: {
-          201: zodToJsonSchema(selectWalletSchema),
+          201: zodToJsonSchema(
+            selectWalletSchema
+          ),
         },
       },
     })
