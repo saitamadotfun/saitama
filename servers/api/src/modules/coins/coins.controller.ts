@@ -14,8 +14,10 @@ export const createCoin = (
   value: z.infer<typeof insertCoinSchema>
 ) => db.insert(coins).values(value).returning().execute();
 
-export const getCoins = (db: Database, where?: SQL<unknown>) =>
-  db.query.coins.findMany({ where }).execute();
+export const getCoinsWhere = <T extends SQL<unknown> | undefined>(
+  db: Database,
+  ...where: T[]
+) => db.query.coins.findMany({ where: and(...where) }).execute();
 
 export const getCoinById = (
   db: Database,

@@ -1,14 +1,14 @@
 import type { FastifyInstance } from "fastify";
 
 import registerWebsocket from "./websocket";
-import registerAppRoutes from "./apps/app.route";
+import registerAppRoutes from "./apps/apps.route";
 import registerAuthRoutes from "./auth/auth.route";
 import registerUserRoutes from "./users/users.route";
 import registerCoinRoutes from "./coins/coins.route";
-import registerWalletRoutes from "./wallets/wallet.route";
-import registerApiKeyRoutes from "./api-keys/api-key.route";
-import registerPaymentRoutes from "./payments/payment.route";
-import registerWebhookRoutes from "./webhooks/webhook.route";
+import registerWalletRoutes from "./wallets/wallets.route";
+import registerApiKeyRoutes from "./api-keys/api-keys.route";
+import registerPaymentRoutes from "./payments/payments.route";
+import registerWebhookRoutes from "./webhooks/webhooks.route";
 import registerNetworkRoutes from "./networks/networks.route";
 import registerCustomerRoutes from "./customers/customers.route";
 import registerTransactionRoutes from "./transactions/transactions.route";

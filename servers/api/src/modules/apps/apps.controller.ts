@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import { and, eq } from "drizzle-orm";
+import { and, eq, SQL } from "drizzle-orm";
 
 import { apps } from "../../db/schema";
 import type { Database } from "../../db";
@@ -14,13 +14,14 @@ export const createApp = (
   values: z.infer<typeof insertAppSchema>
 ) => db.insert(apps).values(values).returning().execute();
 
-export const getAppsByUser = (
+export const getAppsByUserWhere = <T extends SQL<unknown>>(
   db: Database,
-  user: z.infer<typeof selectUserSchema>["id"]
+  user: z.infer<typeof selectUserSchema>["id"],
+  where?: T
 ) =>
   db.query.apps
     .findMany({
-      where: eq(apps.user, user),
+      where: and(eq(apps.user, user), where),
       columns: {
         user: false,
       },

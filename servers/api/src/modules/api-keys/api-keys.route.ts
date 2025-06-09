@@ -7,12 +7,14 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "../../instances";
 import { RequestError } from "../../error";
 import { withUserGuard } from "../../guards";
+import { apiKeySearchQuery } from "./api-keys.query";
+import { apiKeySearchSchema } from "./api-keys.schema";
 import { insertApiKeySchema, selectApiKeySchema } from "../../db/zod";
 import {
   createApiKey,
   deleteApiKeyByAppAndId,
-  getApiKeysByApp,
-} from "./api-key.controller";
+  getApiKeysByAppWhere,
+} from "./api-keys.controller";
 
 const createApiKeyRoute = (
   request: FastifyRequest<{ Body?: z.infer<typeof insertApiKeySchema> }>
@@ -24,8 +26,12 @@ const createApiKeyRoute = (
       .then(async (body) => createApiKey(db, { ...body, app: user.app.id }))
   );
 
-const getApiKeysRoute = (request: FastifyRequest) =>
-  getApiKeysByApp(db, request.user!.app!.id);
+const getApiKeysRoute = (
+  request: FastifyRequest<{ Querystring: z.infer<typeof apiKeySearchSchema> }>
+) =>
+  withUserGuard((user) =>
+    getApiKeysByAppWhere(db, user.app.id, apiKeySearchQuery(request.query))
+  );
 
 const deleteApiKeyRoute = (
   request: FastifyRequest<{
@@ -68,6 +74,10 @@ export default function registerApiKeyRoutes(fastify: FastifyInstance) {
         tags: ["apiKeys"],
         description:
           "This resource is to retrieve information about all api keys.",
+        querystring: {
+          ...zodToJsonSchema(apiKeySearchSchema),
+          additionalProperties: true,
+        },
         response: {
           200: zodToJsonSchema(array(selectApiKeySchema), {
             definitions: { selectApiKeySchema },

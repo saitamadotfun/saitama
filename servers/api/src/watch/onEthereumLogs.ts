@@ -6,8 +6,8 @@ import { desc, eq, and, getTableColumns, ilike } from "drizzle-orm";
 
 import type { Database } from "../db";
 import type { insertPaymentSchema } from "../db/zod";
-import { getPaymentById } from "../modules/payments/payment.controller";
-import { refinedPaymentSchema } from "../modules/payments/payment.schema";
+import { getPaymentById } from "../modules/payments/payments.controller";
+import { refinedPaymentSchema } from "../modules/payments/payments.schema";
 import { apps, coins, paymentLinks, payments, wallets } from "../db/schema";
 
 export const onEthereumLogs = (

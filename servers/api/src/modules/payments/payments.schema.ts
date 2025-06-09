@@ -1,5 +1,6 @@
 import { object } from "zod";
 import { string } from "../../db/zod-custom-type";
+import { paymentSearchQuery } from "./payments.query";
 import {
   selectPaymentSchema,
   selectPaymentLinkSchema,
@@ -48,3 +49,7 @@ export const refinedPaymentSchema = selectPaymentSchema
       }),
     })
   );
+
+export const paymentSearchSchema = selectPaymentSchema
+  .pick(paymentSearchQuery.pick)
+  .partial();

@@ -5,7 +5,7 @@ import type { FastifyInstance } from "fastify";
 import { db } from "../../instances";
 import { RequestError } from "../../error";
 import { selectPaymentSchema } from "../../db/zod";
-import { getPaymentById } from "../payments/payment.controller";
+import { getPaymentById } from "../payments/payments.controller";
 
 export default async function registerWebsocket(fastify: FastifyInstance) {
   fastify.io.on("connection", (socket) => {

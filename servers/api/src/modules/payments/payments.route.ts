@@ -8,14 +8,15 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "../../instances";
 import { RequestError } from "../../error";
 import { withUserGuard } from "../../guards";
-import { refinedPaymentSchema } from "./payment.schema";
+import { paymentSearchQuery } from "./payments.query";
+import { insertPaymentSchema, selectPaymentSchema } from "../../db/zod";
+import { paymentSearchSchema, refinedPaymentSchema } from "./payments.schema";
 import {
   createPayment,
   getPaymentByAppAndId,
   getPaymentsByAppWhere,
   updatePaymentByAppAndId,
-} from "./payment.controller";
-import { insertPaymentSchema, selectPaymentSchema } from "../../db/zod";
+} from "./payments.controller";
 
 // instead of getting amount quote here do it on client
 const createPaymentRoute = (
@@ -26,11 +27,18 @@ const createPaymentRoute = (
     return refinedPaymentSchema.parseAsync(payment);
   });
 
-const getPaymentsRoute = withUserGuard(async (user) =>
-  array(refinedPaymentSchema).parseAsync(
-    await getPaymentsByAppWhere(db, user.app.id)
-  )
-);
+const getPaymentsRoute = (
+  request: FastifyRequest<{ Querystring: z.infer<typeof paymentSearchSchema> }>
+) =>
+  withUserGuard(async (user) =>
+    array(refinedPaymentSchema).parseAsync(
+      await getPaymentsByAppWhere(
+        db,
+        user.app.id,
+        paymentSearchQuery(request.query)
+      )
+    )
+  );
 
 const getPaymentRoute = (
   request: FastifyRequest<{
@@ -113,6 +121,10 @@ export default function registerPaymentkoutes(fastify: FastifyInstance) {
         tags: ["payments"],
         description:
           "This resource is to retrieve information about all payments.",
+        querystring: {
+          ...zodToJsonSchema(paymentSearchSchema),
+          additionalProperties: true,
+        },
         response: {
           200: zodToJsonSchema(array(refinedPaymentSchema), {
             definitions: { refinedPaymentSchema },

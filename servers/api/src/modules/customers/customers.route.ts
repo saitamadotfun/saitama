@@ -7,7 +7,8 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "../../instances";
 import { RequestError } from "../../error";
 import { withUserGuard } from "../../guards";
-import { customerSchema } from "./customer.schema";
+import { customerSearchQuery } from "./customers.query";
+import { customerSchema, customerSearchSchema } from "./customers.schema";
 import {
   insertCustomerSchema,
   selectCustomerSchema,
@@ -38,9 +39,12 @@ const createCustomerRoute = (
       })
   );
 
-const getCustomersRoute = withUserGuard((user) =>
-  getCustomersByAppWhere(db, user.app.id)
-);
+const getCustomersRoute = (
+  request: FastifyRequest<{ Querystring: z.infer<typeof customerSearchSchema> }>
+) =>
+  withUserGuard((user) =>
+    getCustomersByAppWhere(db, user.app.id, customerSearchQuery(request.query))
+  );
 
 const getCustomerRoute = (
   request: FastifyRequest<{
@@ -139,6 +143,10 @@ export default function registerCustomerRoutes(fastify: FastifyInstance) {
         tags: ["customers"],
         description:
           "This resource is to retrieve information about all customers.",
+        querystring: {
+          ...zodToJsonSchema(customerSearchSchema),
+          additionalProperties: true,
+        },
         response: {
           200: zodToJsonSchema(array(customerSchema), {
             definitions: {
