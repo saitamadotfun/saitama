@@ -4,12 +4,13 @@ import { and, eq, type SQL } from "drizzle-orm";
 import type { Database } from "../../db";
 import { customers, wallets } from "../../db/schema";
 import type { insertCustomerSchema, selectCustomerSchema } from "../../db/zod";
+import { createWalletsByAppAndCustomer } from "../wallets/wallet.controller";
 
-export const createCustomer = (
+export const createCustomer = async (
   db: Database,
   value: z.infer<typeof insertCustomerSchema>
-) =>
-  db
+) => {
+  const [customer] = await db
     .insert(customers)
     .values(value)
     .onConflictDoUpdate({
@@ -18,6 +19,15 @@ export const createCustomer = (
     })
     .returning()
     .execute();
+
+  const wallets = await createWalletsByAppAndCustomer(
+    db,
+    customer.app,
+    customer.id
+  );
+
+  return { ...customer, wallets };
+};
 
 export const getCustomersByAppWhere = (
   db: Database,

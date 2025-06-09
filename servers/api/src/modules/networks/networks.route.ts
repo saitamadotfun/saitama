@@ -4,10 +4,10 @@ import type { FastifyInstance } from "fastify";
 import zodToJsonSchema from "zod-to-json-schema";
 
 import { db } from "../../instances";
-import { getNetworks } from "./networks.controller";
+import { getNetworksAndWhere } from "./networks.controller";
 import { selectCoinSchema, selectNetworkSchema } from "../../db/zod";
 
-const getNetworksRoute = async () => getNetworks(db);
+const getNetworksRoute = async () => getNetworksAndWhere(db);
 
 export default function registerNetworkRoutes(fastify: FastifyInstance) {
   fastify.route({

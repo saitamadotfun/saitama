@@ -3,7 +3,7 @@ import type { Network } from "./network.model";
 
 export type Wallet<T extends object = { publicKey: string }> = {
   id: string;
-  metadata?: T;
+  metadata: T;
   address: string;
   generated: boolean;
   createdAt: string;

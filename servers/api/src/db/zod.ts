@@ -37,12 +37,38 @@ export const insertApiKeySchema = createInsertSchema(apiKeys).omit({
   createdAt: true,
 });
 
+export const selectCoinSchema = createSelectSchema(coins, {
+  logo: (column) => column.url(),
+});
+export const insertCoinSchema = createInsertSchema(coins, {
+  logo: (column) => column.url(),
+}).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const selectNetworkSchema = createSelectSchema(networks, {
+  logo: (column) => column.url(),
+});
+export const insertNetworkSchema = createInsertSchema(networks, {
+  logo: (column) => column.url(),
+}).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export const selectWalletSchema1 = createSelectSchema(wallets);
 export const selectWalletSchema = discriminatedUnion("generated", [
-  createSelectSchema(wallets)
+  createSelectSchema(wallets, {
+    network: selectNetworkSchema.pick({ id: true, name: true }),
+  })
     .omit({ metadata: true })
     .extend({ generated: literal(true) }),
-  createSelectSchema(wallets)
+  createSelectSchema(wallets, {
+    network: selectNetworkSchema.pick({ id: true, name: true }),
+  })
     .omit({ address: true })
     .extend({ generated: literal(false) }),
 ]);
@@ -90,28 +116,6 @@ export const selectCustomerSchema = createSelectSchema(customers, {
 });
 export const insertCustomerSchema = createInsertSchema(customers, {
   email: (column) => column.email(),
-}).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const selectCoinSchema = createSelectSchema(coins, {
-  logo: (column) => column.url(),
-});
-export const insertCoinSchema = createInsertSchema(coins, {
-  logo: (column) => column.url(),
-}).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const selectNetworkSchema = createSelectSchema(networks, {
-  logo: (column) => column.url(),
-});
-export const insertNetworkSchema = createInsertSchema(networks, {
-  logo: (column) => column.url(),
 }).omit({
   id: true,
   createdAt: true,
