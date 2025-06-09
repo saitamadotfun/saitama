@@ -7,14 +7,16 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "../../instances";
 import { RequestError } from "../../error";
 import { withUserGuard } from "../../guards";
+import { appSearchQuery } from "./apps.query";
+import { appSearchSchema } from "./apps.schema";
 import { insertAppSchema, selectAppSchema } from "../../db/zod";
 import {
   createApp,
   deleteAppByUserAndId,
   getAppByUserAndId,
-  getAppsByUser,
+  getAppsByUserWhere,
   updateAppByUserAndId,
-} from "./app.controller";
+} from "./apps.controller";
 
 const createAppRoute = (
   request: FastifyRequest<{ Body: z.infer<typeof insertAppSchema> }>
@@ -31,7 +33,13 @@ const createAppRoute = (
     true
   );
 
-const getAppsRoute = withUserGuard((user) => getAppsByUser(db, user.id), true);
+const getAppsRoute = (
+  request: FastifyRequest<{ Querystring: z.infer<typeof appSearchSchema> }>
+) =>
+  withUserGuard(
+    (user) => getAppsByUserWhere(db, user.id, appSearchQuery(request.query)),
+    true
+  );
 
 const getAppRoute = (
   request: FastifyRequest<{
@@ -123,6 +131,10 @@ export default function registerAppRoutes(fastify: FastifyInstance) {
       schema: {
         tag: ["apps", "workspaces"],
         description: "This resource is to retrieve information about all apps.",
+        querystring: {
+          ...zodToJsonSchema(appSearchSchema),
+          additionalProperties: true,
+        },
         response: {
           200: zodToJsonSchema(array(selectAppSchema.omit({ user: true }))),
         },

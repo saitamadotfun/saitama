@@ -14,7 +14,7 @@ import { transactionSchema } from "./transactions.schema";
 import {
   getWalletByAppWhere,
   loadWalletFromDb,
-} from "../wallets/wallet.controller";
+} from "../wallets/wallets.controller";
 
 const processTransactionRoute = (
   request: FastifyRequest<{ Body: z.infer<typeof transactionSchema> }>

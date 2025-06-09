@@ -6,8 +6,8 @@ import { and, desc, eq, ilike, or } from "drizzle-orm";
 import { TOKEN_2022_PROGRAM_ID, TOKEN_PROGRAM_ID } from "@solana/spl-token";
 
 import type { Database } from "../db";
-import { getPaymentById } from "../modules/payments/payment.controller";
-import { refinedPaymentSchema } from "../modules/payments/payment.schema";
+import { getPaymentById } from "../modules/payments/payments.controller";
+import { refinedPaymentSchema } from "../modules/payments/payments.schema";
 import type { insertPaymentSchema, selectWalletSchema } from "../db/zod";
 import { apps, coins, paymentLinks, payments, wallets } from "../db/schema";
 import type {

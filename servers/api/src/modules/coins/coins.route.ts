@@ -9,12 +9,14 @@ import { db } from "../../instances";
 import { coins } from "../../db/schema";
 import { RequestError } from "../../error";
 import { withUserGuard } from "../../guards";
+import { coinSearchQuery } from "./coins.query";
+import { coinSearchSchema } from "./coins.schema";
 import { insertCoinSchema, selectCoinSchema } from "../../db/zod";
 import {
   createCoin,
   deleteCoinByUserAndId,
   getCoinById,
-  getCoins,
+  getCoinsWhere,
   updateCoinByUserAndId,
 } from "./coins.controller";
 
@@ -31,14 +33,25 @@ const createCoinRoute = (
       })
   );
 
-const getCoinsRoute = withUserGuard(async (user) => {
-  return (
-    await Promise.all([
-      getCoins(db, eq(coins.creator, user.id)),
-      getCoins(db, isNull(coins.creator)),
-    ])
-  ).flat();
-}, true);
+const getCoinsRoute = (
+  request: FastifyRequest<{ Querystring: z.infer<typeof coinSearchSchema> }>
+) =>
+  withUserGuard(async (user) => {
+    return (
+      await Promise.all([
+        getCoinsWhere(
+          db,
+          eq(coins.creator, user.id),
+          coinSearchQuery(request.query)
+        ),
+        getCoinsWhere(
+          db,
+          isNull(coins.creator),
+          coinSearchQuery(request.query)
+        ),
+      ])
+    ).flat();
+  }, true);
 
 const getCoinRoute = (
   request: FastifyRequest<{
@@ -128,6 +141,10 @@ export default function registerCoinRoutes(fastify: FastifyInstance) {
       schema: {
         tags: ["coins"],
         description: "This resource is to multiple coins.",
+        querystring: {
+          ...zodToJsonSchema(coinSearchSchema),
+          additionalProperties: true,
+        },
         response: {
           200: zodToJsonSchema(array(selectCoinSchema), {
             definitions: { selectCoinSchema },

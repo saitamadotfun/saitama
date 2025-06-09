@@ -4,7 +4,7 @@ import { and, eq, type SQL } from "drizzle-orm";
 import type { Database } from "../../db";
 import { customers, wallets } from "../../db/schema";
 import type { insertCustomerSchema, selectCustomerSchema } from "../../db/zod";
-import { createWalletsByAppAndCustomer } from "../wallets/wallet.controller";
+import { createWalletsByAppAndCustomer } from "../wallets/wallets.controller";
 
 export const createCustomer = async (
   db: Database,

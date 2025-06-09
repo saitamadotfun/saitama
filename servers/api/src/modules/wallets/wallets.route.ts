@@ -1,4 +1,4 @@
-import { array, object, type z } from "zod";
+import { array, type z } from "zod";
 import passport from "@fastify/passport";
 import { format } from "@saitamafun/shared";
 import zodToJsonSchema from "zod-to-json-schema";
@@ -10,10 +10,11 @@ import { RequestError } from "../../error";
 import type { chains } from "../../config";
 import { withUserGuard } from "../../guards";
 import { getWallet } from "../../core/wallet";
+import { walletSearchQuery } from "./wallets.query";
+import { walletSearchSchema } from "./wallets.schema";
 import { getNetworkById } from "../networks/networks.controller";
 import {
   insertWalletSchema,
-  selectNetworkSchema,
   selectWalletSchema,
   selectWalletSchema1,
 } from "../../db/zod";
@@ -23,7 +24,7 @@ import {
   deleteWalletByAppAndId,
   getWalletsByAppWhere,
   updateWalletByAppAndId,
-} from "./wallet.controller";
+} from "./wallets.controller";
 
 const createWalletRoute = async (
   request: FastifyRequest<{ Body: z.infer<typeof insertWalletSchema> }>
@@ -81,9 +82,17 @@ const createWalletRoute = async (
       })
   );
 
-export const getWalletsRoute = async (request: FastifyRequest) =>
-  array(selectWalletSchema).parseAsync(
-    await getWalletsByAppWhere(db, request.user!.app!.id)
+export const getWalletsRoute = async (
+  request: FastifyRequest<{ Querystring: z.infer<typeof walletSearchSchema> }>
+) =>
+  withUserGuard(async (user) =>
+    array(selectWalletSchema).parseAsync(
+      await getWalletsByAppWhere(
+        db,
+        user.app.id,
+        walletSearchQuery(request.query)
+      )
+    )
   );
 
 const updateWalletRoute = async (
@@ -150,9 +159,7 @@ export default function registerWalletRoutes(fastify: FastifyInstance) {
             .omit({ app: true, generated: true })
         ),
         response: {
-          201: zodToJsonSchema(
-            selectWalletSchema
-          ),
+          201: zodToJsonSchema(selectWalletSchema),
         },
       },
     })
@@ -165,6 +172,10 @@ export default function registerWalletRoutes(fastify: FastifyInstance) {
         tags: ["wallets"],
         description:
           "This resource is to retrieve information about all wallets.",
+        querystring: {
+          ...zodToJsonSchema(walletSearchSchema),
+          additionalProperties: true,
+        },
         response: {
           200: zodToJsonSchema(array(selectWalletSchema), {
             definitions: { selectWalletSchema },

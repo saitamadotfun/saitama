@@ -1,6 +1,6 @@
 import type { z } from "zod";
 import { promisify } from "util";
-import { and, eq } from "drizzle-orm";
+import { and, eq, SQL } from "drizzle-orm";
 import { generateKeyPair } from "crypto";
 
 import type { Database } from "../../db";
@@ -38,13 +38,14 @@ export const createApiKey = async (
   return { ...apiKey, publicKey, secretKey: privateKey };
 };
 
-export const getApiKeysByApp = async (
+export const getApiKeysByAppWhere = async <T extends SQL<unknown>>(
   db: Database,
-  app: z.infer<typeof selectAppSchema>["id"]
+  app: z.infer<typeof selectAppSchema>["id"],
+  where?: T
 ) =>
   db.query.apiKeys
     .findMany({
-      where: eq(apiKeys.app, app),
+      where: and(eq(apiKeys.app, app), where),
     })
     .execute();
 

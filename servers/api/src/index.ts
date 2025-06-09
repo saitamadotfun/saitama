@@ -22,7 +22,7 @@ import type { selectUserSchema } from "./db/zod";
 import { onEthereumLogs, onSolanaLogs } from "./watch";
 import { db, fastify, redis, solana, viem } from "./instances";
 import { getUserById } from "./modules/users/users.controller";
-import { getAppByUserAndId } from "./modules/apps/app.controller";
+import { getAppByUserAndId } from "./modules/apps/apps.controller";
 import { ApiKeyStrategy, FirebaseStrategy } from "./modules/auth/auth.strategy";
 
 async function main(fastify: FastifyInstance, db: Database) {

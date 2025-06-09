@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import { and, eq, inArray } from "drizzle-orm";
+import { and, eq, inArray, SQL } from "drizzle-orm";
 
 import type { Database } from "../../db";
 import { networks, paymentLinks } from "../../db/schema";
@@ -38,13 +38,14 @@ export const getPaymentLinkByAppAndId = async (
   }
 };
 
-export const getPaymentLinksByApp = async (
+export const getPaymentLinksByAppWhere = async <T extends SQL<unknown>>(
   db: Database,
-  app: z.infer<typeof selectAppSchema>["id"]
+  app: z.infer<typeof selectAppSchema>["id"],
+  where?: T
 ) => {
   const responnse = await db.query.paymentLinks
     .findMany({
-      where: eq(paymentLinks.app, app),
+      where: and(eq(paymentLinks.app, app), where),
     })
     .execute();
 

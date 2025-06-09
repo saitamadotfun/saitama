@@ -30,8 +30,10 @@ export const normalizeValue = <TColumn extends Column, TValue extends string>(
   column: TColumn,
   value: TValue
 ) => {
-  const normalize = () => {
+  return (() => {
     if (!column.notNull && ["null", "undefined"].includes(value)) return null;
+    if (typeof value === "object") return value;
+
     switch (column.dataType) {
       case "bigint":
         return BigInt(value);
@@ -47,11 +49,9 @@ export const normalizeValue = <TColumn extends Column, TValue extends string>(
       case "string":
         return value;
       case "array":
-        throw new RequestError(500, "array not supported as filter.");
+        return value.split(",");
       case "buffer":
         throw new RequestError(500, "buffer not supported as filter.");
     }
-  };
-
-  return normalize() as TColumn["dataType"];
+  })() as TColumn["dataType"];
 };

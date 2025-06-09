@@ -7,13 +7,15 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "../../instances";
 import { RequestError } from "../../error";
 import { withUserGuard } from "../../guards";
+import { webhookSearchQuery } from "./webhooks.query";
+import { webhookSearchSchema } from "./webhooks.schema";
 import { insertWebhookSchema, selectWebhookSchema } from "../../db/zod";
 import {
   createWebhook,
   deleteWebhookByAppAndId,
-  getWebhooksByApp,
+  getWebhooksByAppWhere,
   updateWebhookByAppAndId,
-} from "./webhook.controller";
+} from "./webhooks.controller";
 
 const createWebhookRoute = (
   request: FastifyRequest<{ Body: z.infer<typeof insertWebhookSchema> }>
@@ -27,9 +29,12 @@ const createWebhookRoute = (
       })
   );
 
-const getWebhooksRoute = withUserGuard((user) =>
-  getWebhooksByApp(db, user.app.id)
-);
+const getWebhooksRoute = (
+  request: FastifyRequest<{ Querystring: z.infer<typeof webhookSearchSchema> }>
+) =>
+  withUserGuard((user) =>
+    getWebhooksByAppWhere(db, user.app.id, webhookSearchQuery(request.query))
+  );
 
 const updateWebhookRoute = (
   request: FastifyRequest<{
@@ -104,6 +109,10 @@ export default function registerWebhookRoutes(fastify: FastifyInstance) {
         tags: ["webhooks"],
         description:
           "This resource is to retrieve information about all webhooks.",
+        querystring: {
+          ...zodToJsonSchema(webhookSearchSchema),
+          additionalProperties: true,
+        },
         response: {
           200: zodToJsonSchema(array(selectWebhookSchema), {
             definitions: { selectWebhookSchema },

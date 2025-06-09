@@ -4,6 +4,7 @@ import {
   eq,
   gt,
   gte,
+  ilike,
   isNull,
   like,
   lt,
@@ -23,6 +24,7 @@ const Grammer = {
   gt,
   gte,
   like,
+  ilike,
   ne,
   isNull,
 };
@@ -72,7 +74,16 @@ export const queryBuilder = <
     })
   );
 
-  return (query: { [key in U[number]]?: string | undefined | null }) => {
+  const func = (query: {
+    [key in U[number]]?:
+      | string
+      | undefined
+      | null
+      | Date
+      | boolean
+      | bigint
+      | string[];
+  }) => {
     const sqlWrappers: (SQL | undefined)[] = [];
 
     for (const [key, value] of Object.entries(query)) {
@@ -89,4 +100,10 @@ export const queryBuilder = <
 
     return sqlWrappers.at(0);
   };
+
+  func.pick = Object.fromEntries(columns.map((column) => [column, true])) as {
+    [key in U[number]]: true;
+  };
+
+  return func;
 };

@@ -7,6 +7,8 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "../../instances";
 import { RequestError } from "../../error";
 import { withUserGuard } from "../../guards";
+import { paymentLinkSearchQuery } from "./payment-links.query";
+import { paymentLinkSearchSchema } from "./payment-links.schema";
 import {
   insertPaymentLinkSchema,
   selectNetworkSchema,
@@ -16,7 +18,7 @@ import {
   createPaymentLink,
   deletePaymentLinkByAppAndId,
   getPaymentLinkByAppAndId,
-  getPaymentLinksByApp,
+  getPaymentLinksByAppWhere,
   updatePaymentLinkByAppAndId,
 } from "./payment-links.controller";
 
@@ -37,8 +39,19 @@ const createPaymentLinkRoute = (
       })
   );
 
-const getPaymentLinksRoute = () =>
-  withUserGuard((user) => getPaymentLinksByApp(db, user.app.id));
+const getPaymentLinksRoute = (
+  request: FastifyRequest<{
+    Querystring: z.infer<typeof paymentLinkSearchSchema>;
+  }>
+) =>
+  withUserGuard((user) => {
+    console.log(request.query);
+    return getPaymentLinksByAppWhere(
+      db,
+      user.app.id,
+      paymentLinkSearchQuery(request.query)
+    );
+  });
 
 const getPaymentLinkRoute = (
   request: FastifyRequest<{
@@ -140,6 +153,10 @@ export default function registerPaymentLinkRoutes(fastify: FastifyInstance) {
         tags: ["paymentLinks"],
         description:
           "This resource is to retrieve information about all paymentLinks.",
+        querystring: {
+          ...zodToJsonSchema(paymentLinkSearchSchema),
+          additionalProperties: true,
+        },
         response: {
           200: zodToJsonSchema(
             array(

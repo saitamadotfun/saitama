@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import { and, eq } from "drizzle-orm";
+import { and, eq, SQL } from "drizzle-orm";
 
 import type { Database } from "../../db";
 import { webhooks } from "../../db/schema";
@@ -14,10 +14,14 @@ export const createWebhook = (
   value: z.infer<typeof insertWebhookSchema>
 ) => db.insert(webhooks).values(value).returning().execute();
 
-export const getWebhooksByApp = (
+export const getWebhooksByAppWhere = <T extends SQL<unknown>>(
   db: Database,
-  app: z.infer<typeof selectAppSchema>["id"]
-) => db.query.webhooks.findMany({ where: eq(webhooks.app, app) }).execute();
+  app: z.infer<typeof selectAppSchema>["id"],
+  where?: T
+) =>
+  db.query.webhooks
+    .findMany({ where: and(eq(webhooks.app, app), where) })
+    .execute();
 
 export const updateWebhookByAppAndId = (
   db: Database,
