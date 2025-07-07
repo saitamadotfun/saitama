@@ -1,5 +1,5 @@
-import type { Network } from "./network.model";
 import type { Wallet } from "./wallet.model";
+import type { Network } from "./network.model";
 
 export type Customer<T extends object = object> = {
   id: string;
@@ -7,6 +7,6 @@ export type Customer<T extends object = object> = {
   email: string;
   createdAt: string;
   updatedAt: string;
-  wallets: Pick<Wallet, "id"> & { network: Pick<Network, "id" | "name"> }[];
   reference?: string;
+  wallets: Pick<Wallet, "id"> & { network: Pick<Network, "id" | "name"> }[];
 };

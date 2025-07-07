@@ -1,8 +1,8 @@
-import type { Api } from "@saitamafun/sdk";
 import { createContext, useContext } from "react";
+import type { SaitamaClient } from "@saitamafun/sdk";
 
 type APIContext = {
-  api: InstanceType<typeof Api>;
+  api: InstanceType<typeof SaitamaClient>;
 };
 
 export const APIContext = createContext<Partial<APIContext>>({

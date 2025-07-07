@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Api } from "@saitamafun/sdk";
+import { SaitamaClient } from "@saitamafun/sdk";
 
 import { APIContext } from "../contexts/APIContext";
 
@@ -16,11 +16,9 @@ export default function APIProvider({
   children,
 }: React.PropsWithChildren<APIProviderProps>) {
   const api = useMemo(
-    () => new Api(baseURL, apiKey, appId),
+    () => new SaitamaClient(baseURL, apiKey, appId),
     [apiKey, appId, baseURL]
   );
 
   return <APIContext.Provider value={{ api }}>{children}</APIContext.Provider>;
 }
-
-

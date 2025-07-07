@@ -13,7 +13,7 @@ import { TransactionApi } from "./transaction.api";
 
 export type * from "./models";
 
-export class Api {
+export class SaitamaClient {
   private readonly xior: XiorInstance;
 
   readonly app: AppApi;
@@ -56,4 +56,4 @@ export class Api {
   }
 }
 
-export default Api;
+export default SaitamaClient;
