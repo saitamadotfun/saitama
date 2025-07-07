@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { type z, string } from "zod";
 import fastifyCors from "@fastify/cors";
 import { format } from "@saitamafun/shared";
@@ -7,7 +7,6 @@ import fastifyPassport from "@fastify/passport";
 import fastifySocketIO from "fastify-socket.io";
 import { createAdapter } from "@socket.io/redis-adapter";
 import fastifySecureSession from "@fastify/secure-session";
-import fastifyApiReference from "@scalar/fastify-api-reference";
 import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
 import { type FastifyInstance, type FastifyRequest } from "fastify";
 
@@ -76,14 +75,6 @@ async function main(fastify: FastifyInstance, db: Database) {
     },
   });
 
-  await fastify.register(fastifyApiReference, {
-    routePrefix: "/docs/",
-    configuration: {
-      title: "",
-      theme: "laserwave",
-    },
-  });
-
   fastifyPassport.use("apiKey", new ApiKeyStrategy());
   fastifyPassport.use("firebase", new FirebaseStrategy());
   fastifyPassport.use(
@@ -132,7 +123,13 @@ async function main(fastify: FastifyInstance, db: Database) {
 
   await registerRoutes(fastify);
 
-  await fastify.ready();
+  await fastify.ready().then(() => {
+    const openapi = fastify.swagger();
+    writeFileSync(
+      "../../web/www/docs/api-reference/openapi.json",
+      JSON.stringify(openapi, null, 2)
+    );
+  });
   await Promise.all([
     fastify.listen({
       host: getEnv<string>("HOST")!,

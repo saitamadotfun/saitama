@@ -1,0 +1,40 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Build with Saitama.",
+  "colors": {
+    "primary": "#000000",
+    "light": "#000000",
+    "dark": "#FFFFFF"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [],
+    "global": {
+      "anchors": []
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:hi@saitama.fun"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.saitama.fun"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/saitamadotfun",
+      "github": "https://github.com/saitamadotfun/saitama"
+    }
+  }
+}

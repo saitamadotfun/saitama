@@ -1,9 +1,9 @@
-import { Api, type Payment } from "@saitamafun/sdk";
+import { MdLink } from "react-icons/md";
+import { SaitamaClient, type Payment } from "@saitamafun/sdk";
 
 import { getEnv } from "../env";
 import Provider from "../providers";
 import PaymentModal from "../components/payments";
-import { MdLink } from "react-icons/md";
 
 export default async function PaymentPage({
   searchParams,
@@ -15,7 +15,7 @@ export default async function PaymentPage({
     const apiKey = getEnv("API_KEY");
     const apiBaseURL = getEnv("API_BASE_URL");
 
-    const api = new Api(apiBaseURL, apiKey, appId);
+    const api = new SaitamaClient(apiBaseURL, apiKey, appId);
     const [networks, paymentLink] = await Promise.all([
       api.network.list().then(({ data }) => data),
       api.paymentLink

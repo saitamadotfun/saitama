@@ -3,12 +3,12 @@ import { erc20Abi } from "viem";
 import { getContract, parseEther, type Address, type WalletClient } from "viem";
 
 import { NetworkImpl } from "./impl";
-import type { Api, PurePayment } from "..";
+import type { SaitamaClient, PurePayment } from "..";
 
 export class EthereumPayment extends NetworkImpl {
   constructor(
     private readonly client: WalletClient,
-    protected readonly api: Api
+    protected readonly api: SaitamaClient
   ) {
     super(api);
   }

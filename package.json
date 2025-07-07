@@ -26,6 +26,8 @@
   "devDependencies": {
     "@changesets/cli": "^2.29.4",
     "@next/eslint-plugin-next": "^15.3.3",
+    "mint": "^4.1.57",
+    "mintlify": "^4.0.576",
     "tsup": "^8.5.0",
     "turbo": "^2.5.4",
     "typescript": "latest"

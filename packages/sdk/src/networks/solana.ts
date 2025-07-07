@@ -5,7 +5,7 @@ import { getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { createAssociatedTokenAccountIdempotentInstruction } from "@solana/spl-token";
 
 import { NetworkImpl } from "./impl";
-import type { Api, PurePayment } from "../api";
+import type { SaitamaClient, PurePayment } from "../api";
 
 export class SolanaPayment extends NetworkImpl {
   constructor(
@@ -13,7 +13,7 @@ export class SolanaPayment extends NetworkImpl {
       publicKey: web3.PublicKey;
       sendAndConfirm: AnchorProvider["sendAndConfirm"];
     },
-    protected readonly api: Api
+    protected readonly api: SaitamaClient
   ) {
     super(api);
   }

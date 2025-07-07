@@ -1,0 +1,4546 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Saitama API Documentation",
+    "description": "Explore resources, tutorials, API docs and dynamic examples to get most out of saitama's developer platform.",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name": "apiKey",
+        "in": "header"
+      },
+      "authorization": {
+        "type": "http",
+        "scheme": "Bearer"
+      },
+      "jwt": {
+        "type": "http",
+        "scheme": "Bearer"
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/apps/": {
+      "post": {
+        "description": "This resource is to create a unique app.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "user",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "This resource is to retrieve information about all apps.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "name",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "user",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "createdAt",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "updatedAt",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "logo": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "logo",
+                      "createdAt",
+                      "updatedAt"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{id}/": {
+      "get": {
+        "description": "This resource is to retrieve information about a single app.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "logo",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "This resource is to update some information about a single app.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "user",
+                    "name",
+                    "logo",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "This resource is to delete a single app.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "user",
+                    "name",
+                    "logo",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/token/": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "description": "This resource is to get authentication token.",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "lastName": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "firstName": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        },
+                        "isVerified": {
+                          "type": "boolean"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "lastLogin": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "lastName",
+                        "firstName",
+                        "email",
+                        "isVerified",
+                        "createdAt",
+                        "updatedAt",
+                        "lastLogin"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "token",
+                    "user"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me/": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "description": "This resource is to retrieve information about a single user.",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "firstName": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "isVerified": {
+                      "type": "boolean"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "lastLogin": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "lastName",
+                    "firstName",
+                    "email",
+                    "isVerified",
+                    "createdAt",
+                    "updatedAt",
+                    "lastLogin"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coins/": {
+      "post": {
+        "tags": [
+          "coins"
+        ],
+        "description": "This resource is to create a unique coin.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mint": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "ticker": {
+                    "type": "string"
+                  },
+                  "logo": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "isNative": {
+                    "type": "boolean"
+                  },
+                  "decimals": {
+                    "type": "integer",
+                    "minimum": -2147483648,
+                    "maximum": 2147483647
+                  },
+                  "network": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "mint",
+                  "name",
+                  "ticker",
+                  "logo",
+                  "decimals",
+                  "network"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "mint": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "ticker": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "isNative": {
+                      "type": "boolean"
+                    },
+                    "decimals": {
+                      "type": "integer",
+                      "minimum": -2147483648,
+                      "maximum": 2147483647
+                    },
+                    "network": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "creator": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mint",
+                    "name",
+                    "ticker",
+                    "logo",
+                    "isNative",
+                    "decimals",
+                    "network",
+                    "creator",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "coins"
+        ],
+        "description": "This resource is to multiple coins.",
+        "parameters": [
+          {
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "in": "query",
+            "name": "creator",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "isNative",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "mint",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "query",
+            "name": "network",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "ticker",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/selectCoinSchema"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coins/{id}/": {
+      "get": {
+        "tags": [
+          "coins"
+        ],
+        "description": "This resource is to retrieve some information about a single coin.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "mint": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "ticker": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "isNative": {
+                      "type": "boolean"
+                    },
+                    "decimals": {
+                      "type": "integer",
+                      "minimum": -2147483648,
+                      "maximum": 2147483647
+                    },
+                    "network": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "creator": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mint",
+                    "name",
+                    "ticker",
+                    "logo",
+                    "isNative",
+                    "decimals",
+                    "network",
+                    "creator",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "coins"
+        ],
+        "description": "This resource is to update some information about a single coin.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "mint": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "ticker": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "isNative": {
+                      "type": "boolean"
+                    },
+                    "decimals": {
+                      "type": "integer",
+                      "minimum": -2147483648,
+                      "maximum": 2147483647
+                    },
+                    "network": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "creator": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mint",
+                    "name",
+                    "ticker",
+                    "logo",
+                    "isNative",
+                    "decimals",
+                    "network",
+                    "creator",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "coins"
+        ],
+        "description": "This resource is to delete a single coin.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "mint": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "ticker": {
+                      "type": "string"
+                    },
+                    "logo": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "isNative": {
+                      "type": "boolean"
+                    },
+                    "decimals": {
+                      "type": "integer",
+                      "minimum": -2147483648,
+                      "maximum": 2147483647
+                    },
+                    "network": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "creator": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mint",
+                    "name",
+                    "ticker",
+                    "logo",
+                    "isNative",
+                    "decimals",
+                    "network",
+                    "creator",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api-keys/": {
+      "post": {
+        "tags": [
+          "apiKeys"
+        ],
+        "description": "This resource is to create a unique api key.",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "secretKey": {
+                      "type": "string"
+                    },
+                    "publicKey": {
+                      "type": "string"
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "secretKey",
+                    "publicKey",
+                    "app",
+                    "createdAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "apiKeys"
+        ],
+        "description": "This resource is to retrieve information about all api keys.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "createdAt",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/selectApiKeySchema"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api-keys/{id}/": {
+      "delete": {
+        "tags": [
+          "apiKeys"
+        ],
+        "description": "This resource is to delete a single api key.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "secretKey": {
+                      "type": "string"
+                    },
+                    "publicKey": {
+                      "type": "string"
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "secretKey",
+                    "publicKey",
+                    "app",
+                    "createdAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/networks/": {
+      "get": {
+        "tags": [
+          "networks"
+        ],
+        "description": "This resource is to retrieve information about all networks.",
+        "parameters": [
+          {
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "in": "query",
+            "name": "creator",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "solana",
+                "ethereum",
+                "tron"
+              ]
+            },
+            "in": "query",
+            "name": "name",
+            "required": false
+          },
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "in": "query",
+            "name": "parent",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "name": {
+                            "type": "string",
+                            "enum": [
+                              "solana",
+                              "ethereum",
+                              "tron"
+                            ]
+                          },
+                          "logo": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "logo"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "coins": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "mint": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "ticker": {
+                                  "type": "string"
+                                },
+                                "logo": {
+                                  "type": "string",
+                                  "format": "uri"
+                                },
+                                "isNative": {
+                                  "type": "boolean"
+                                },
+                                "decimals": {
+                                  "type": "integer",
+                                  "minimum": -2147483648,
+                                  "maximum": 2147483647
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "mint",
+                                "name",
+                                "ticker",
+                                "logo",
+                                "isNative",
+                                "decimals"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "coins"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wallets/": {
+      "post": {
+        "tags": [
+          "wallets"
+        ],
+        "description": "This resource is to create a unique wallet.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customer": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "metadata": {
+                    "anyOf": [
+                      {
+                        "anyOf": [
+                          {
+                            "type": [
+                              "string",
+                              "number",
+                              "boolean",
+                              "null"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "additionalProperties": {}
+                          },
+                          {
+                            "type": "array"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "network": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "network"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "customer": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "generated": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ]
+                        },
+                        "network": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string",
+                              "enum": [
+                                "solana",
+                                "ethereum",
+                                "tron"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "app",
+                        "customer",
+                        "address",
+                        "generated",
+                        "network",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "customer": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "metadata": {
+                          "anyOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "type": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                                },
+                                {
+                                  "type": "array"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "generated": {
+                          "type": "boolean",
+                          "enum": [
+                            false
+                          ]
+                        },
+                        "network": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "$ref": "#/anyOf/0/properties/network/properties/id"
+                            },
+                            "name": {
+                              "$ref": "#/anyOf/0/properties/network/properties/name"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "app",
+                        "customer",
+                        "metadata",
+                        "generated",
+                        "network",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "wallets"
+        ],
+        "description": "This resource is to retrieve information about all wallets.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "address",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "query",
+            "name": "network",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "generated",
+            "required": false
+          },
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "in": "query",
+            "name": "customer",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "createdAt",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "updatedAt",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/selectWalletSchema"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wallets/{id}/": {
+      "patch": {
+        "tags": [
+          "wallets"
+        ],
+        "description": "This resource is to retrieve information about a single wallet.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "customer": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "generated": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ]
+                        },
+                        "network": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string",
+                              "enum": [
+                                "solana",
+                                "ethereum",
+                                "tron"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "app",
+                        "customer",
+                        "address",
+                        "generated",
+                        "network",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "customer": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "metadata": {
+                          "anyOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "type": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                                },
+                                {
+                                  "type": "array"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "generated": {
+                          "type": "boolean",
+                          "enum": [
+                            false
+                          ]
+                        },
+                        "network": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "$ref": "#/anyOf/0/properties/network/properties/id"
+                            },
+                            "name": {
+                              "$ref": "#/anyOf/0/properties/network/properties/name"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "app",
+                        "customer",
+                        "metadata",
+                        "generated",
+                        "network",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "wallets"
+        ],
+        "description": "This resource is to delete a single wallet.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "customer": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "generated": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ]
+                        },
+                        "network": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string",
+                              "enum": [
+                                "solana",
+                                "ethereum",
+                                "tron"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "app",
+                        "customer",
+                        "address",
+                        "generated",
+                        "network",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "customer": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "metadata": {
+                          "anyOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "type": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                                },
+                                {
+                                  "type": "array"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "generated": {
+                          "type": "boolean",
+                          "enum": [
+                            false
+                          ]
+                        },
+                        "network": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "$ref": "#/anyOf/0/properties/network/properties/id"
+                            },
+                            "name": {
+                              "$ref": "#/anyOf/0/properties/network/properties/name"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "app",
+                        "customer",
+                        "metadata",
+                        "generated",
+                        "network",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/": {
+      "post": {
+        "tags": [
+          "payments"
+        ],
+        "description": "This resource is to create a unique payment.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {},
+                  "coin": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "signature": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "paymentLink": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "customer": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "wallet": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "pending",
+                      "success",
+                      "failed"
+                    ]
+                  },
+                  "metadata": {
+                    "anyOf": [
+                      {
+                        "anyOf": [
+                          {
+                            "not": {}
+                          },
+                          {
+                            "type": "object",
+                            "properties": {},
+                            "additionalProperties": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "amount",
+                  "coin",
+                  "paymentLink",
+                  "customer",
+                  "wallet"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "pending",
+                            "success",
+                            "failed"
+                          ]
+                        },
+                        "metadata": {
+                          "anyOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "type": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                                },
+                                {
+                                  "type": "array"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "status",
+                        "metadata",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "amount": {},
+                        "paymentLink": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "price": {
+                              "type": "object",
+                              "properties": {
+                                "amount": {
+                                  "type": "string"
+                                },
+                                "currency": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "amount",
+                                "currency"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "app": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "networks": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "format": "uuid"
+                              }
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "description",
+                            "price",
+                            "app",
+                            "networks",
+                            "createdAt",
+                            "updatedAt"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "wallet": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "address": {
+                              "type": "string"
+                            },
+                            "metadata": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/allOf/0/properties/metadata/anyOf/0"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "address",
+                            "metadata"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "coin": {
+                          "allOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "mint": {
+                                  "type": "string"
+                                },
+                                "ticker": {
+                                  "type": "string"
+                                },
+                                "decimals": {
+                                  "type": "integer",
+                                  "minimum": -2147483648,
+                                  "maximum": 2147483647
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "mint",
+                                "ticker",
+                                "decimals"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "network": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "format": "uuid"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "enum": [
+                                        "solana",
+                                        "ethereum",
+                                        "tron"
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "network"
+                              ]
+                            }
+                          ]
+                        },
+                        "customer": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "email": {
+                              "type": "string",
+                              "format": "email"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "email"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "amount",
+                        "paymentLink",
+                        "wallet",
+                        "coin",
+                        "customer"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "payments"
+        ],
+        "description": "This resource is to retrieve information about all payments.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "query",
+            "name": "coin",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "query",
+            "name": "wallet",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "query",
+            "name": "customer",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "success",
+                "failed"
+              ]
+            },
+            "in": "query",
+            "name": "status",
+            "required": false
+          },
+          {
+            "schema": {},
+            "in": "query",
+            "name": "amount",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "query",
+            "name": "paymentLink",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "in": "query",
+            "name": "signature",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "createdAt",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "updatedAt",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/refinedPaymentSchema"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/{id}/": {
+      "get": {
+        "tags": [
+          "payments"
+        ],
+        "description": "This resource is to retrieve information about a single payment.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "pending",
+                            "success",
+                            "failed"
+                          ]
+                        },
+                        "metadata": {
+                          "anyOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "type": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                                },
+                                {
+                                  "type": "array"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "status",
+                        "metadata",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "amount": {},
+                        "paymentLink": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "price": {
+                              "type": "object",
+                              "properties": {
+                                "amount": {
+                                  "type": "string"
+                                },
+                                "currency": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "amount",
+                                "currency"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "app": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "networks": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "format": "uuid"
+                              }
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "description",
+                            "price",
+                            "app",
+                            "networks",
+                            "createdAt",
+                            "updatedAt"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "wallet": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "address": {
+                              "type": "string"
+                            },
+                            "metadata": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/allOf/0/properties/metadata/anyOf/0"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "address",
+                            "metadata"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "coin": {
+                          "allOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "mint": {
+                                  "type": "string"
+                                },
+                                "ticker": {
+                                  "type": "string"
+                                },
+                                "decimals": {
+                                  "type": "integer",
+                                  "minimum": -2147483648,
+                                  "maximum": 2147483647
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "mint",
+                                "ticker",
+                                "decimals"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "network": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "format": "uuid"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "enum": [
+                                        "solana",
+                                        "ethereum",
+                                        "tron"
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "network"
+                              ]
+                            }
+                          ]
+                        },
+                        "customer": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "email": {
+                              "type": "string",
+                              "format": "email"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "email"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "amount",
+                        "paymentLink",
+                        "wallet",
+                        "coin",
+                        "customer"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "payments"
+        ],
+        "description": "This resource is to update some information about a single payment.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "pending",
+                            "success",
+                            "failed"
+                          ]
+                        },
+                        "metadata": {
+                          "anyOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "type": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": {}
+                                },
+                                {
+                                  "type": "array"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "status",
+                        "metadata",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "amount": {},
+                        "paymentLink": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "price": {
+                              "type": "object",
+                              "properties": {
+                                "amount": {
+                                  "type": "string"
+                                },
+                                "currency": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "amount",
+                                "currency"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "app": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "networks": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "format": "uuid"
+                              }
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "name",
+                            "description",
+                            "price",
+                            "app",
+                            "networks",
+                            "createdAt",
+                            "updatedAt"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "wallet": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "address": {
+                              "type": "string"
+                            },
+                            "metadata": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/allOf/0/properties/metadata/anyOf/0"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "address",
+                            "metadata"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "coin": {
+                          "allOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string",
+                                  "format": "uuid"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "mint": {
+                                  "type": "string"
+                                },
+                                "ticker": {
+                                  "type": "string"
+                                },
+                                "decimals": {
+                                  "type": "integer",
+                                  "minimum": -2147483648,
+                                  "maximum": 2147483647
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "mint",
+                                "ticker",
+                                "decimals"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "network": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string",
+                                      "format": "uuid"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "enum": [
+                                        "solana",
+                                        "ethereum",
+                                        "tron"
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "name"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              },
+                              "required": [
+                                "network"
+                              ]
+                            }
+                          ]
+                        },
+                        "customer": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid"
+                            },
+                            "email": {
+                              "type": "string",
+                              "format": "email"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "email"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "amount",
+                        "paymentLink",
+                        "wallet",
+                        "coin",
+                        "customer"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhooks/": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "description": "This resource is to create a unique webhook.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "url"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "url",
+                    "app",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "webhooks"
+        ],
+        "description": "This resource is to retrieve information about all webhooks.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "in": "query",
+            "name": "url",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "createdAt",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "updatedAt",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/selectWebhookSchema"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhooks/{id}/": {
+      "patch": {
+        "tags": [
+          "webhooks"
+        ],
+        "description": "This resource is to update some information about a single webhook.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "url",
+                    "app",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "webhooks"
+        ],
+        "description": "This resource is to delete a single webhook.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "url",
+                    "app",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/": {
+      "post": {
+        "tags": [
+          "customers"
+        ],
+        "description": "This resource is to create a unique customer.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reference": {
+                    "type": "string"
+                  },
+                  "firstName": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "lastName": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "email"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "reference": {
+                          "type": "string"
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "firstName": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "lastName": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "reference",
+                        "app",
+                        "firstName",
+                        "lastName",
+                        "email",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "wallets": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "app": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "customer": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "address": {
+                                    "type": "string"
+                                  },
+                                  "generated": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      true
+                                    ]
+                                  },
+                                  "network": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      "name": {
+                                        "type": "string",
+                                        "enum": [
+                                          "solana",
+                                          "ethereum",
+                                          "tron"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "createdAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "updatedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "app",
+                                  "customer",
+                                  "address",
+                                  "generated",
+                                  "network",
+                                  "createdAt",
+                                  "updatedAt"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "app": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                  },
+                                  "customer": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string",
+                                        "format": "uuid"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "anyOf": [
+                                      {
+                                        "anyOf": [
+                                          {
+                                            "type": [
+                                              "string",
+                                              "number",
+                                              "boolean",
+                                              "null"
+                                            ]
+                                          },
+                                          {
+                                            "type": "object",
+                                            "additionalProperties": {}
+                                          },
+                                          {
+                                            "type": "array"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "generated": {
+                                    "type": "boolean",
+                                    "enum": [
+                                      false
+                                    ]
+                                  },
+                                  "network": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "$ref": "#/allOf/1/properties/wallets/items/anyOf/0/properties/network/properties/id"
+                                      },
+                                      "name": {
+                                        "$ref": "#/allOf/1/properties/wallets/items/anyOf/0/properties/network/properties/name"
+                                      }
+                                    },
+                                    "required": [
+                                      "id",
+                                      "name"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  "createdAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "updatedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "app",
+                                  "customer",
+                                  "metadata",
+                                  "generated",
+                                  "network",
+                                  "createdAt",
+                                  "updatedAt"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "wallets"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "description": "This resource is to retrieve information about all customers.",
+        "parameters": [
+          {
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "in": "query",
+            "name": "firstName",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "in": "query",
+            "name": "lastName",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "reference",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "createdAt",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/customerSchema"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{id}/": {
+      "get": {
+        "tags": [
+          "customers"
+        ],
+        "description": "This resource is to retrieve information about a single customer.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "reference": {
+                          "type": "string"
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "firstName": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "lastName": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "reference",
+                        "app",
+                        "firstName",
+                        "lastName",
+                        "email",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "wallets": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "$ref": "#/components/schemas/selectWalletSchema1/properties/id"
+                              },
+                              "metadata": {
+                                "$ref": "#/components/schemas/selectWalletSchema1/properties/metadata"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "metadata"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "wallets"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "customers"
+        ],
+        "description": "This resource is to update some information about a single customer.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reference": {
+                    "type": "string"
+                  },
+                  "app": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "firstName": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "lastName": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "firstName": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "lastName": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "reference",
+                    "app",
+                    "firstName",
+                    "lastName",
+                    "email",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "customers"
+        ],
+        "description": "This resource is to delete a single customer.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "reference": {
+                      "type": "string"
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "firstName": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "lastName": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "reference",
+                    "app",
+                    "firstName",
+                    "lastName",
+                    "email",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payment-links/": {
+      "post": {
+        "tags": [
+          "paymentLinks"
+        ],
+        "description": "This resource is to create a unique paymentLink.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "price": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "string"
+                      },
+                      "currency": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "currency"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "networks": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "price",
+                  "networks"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "price": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "string"
+                        },
+                        "currency": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "amount",
+                        "currency"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "networks": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "price",
+                    "app",
+                    "networks",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "paymentLinks"
+        ],
+        "description": "This resource is to retrieve information about all paymentLinks.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "name",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            },
+            "in": "query",
+            "name": "networks",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "createdAt",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "in": "query",
+            "name": "updatedAt",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "price": {
+                            "type": "object",
+                            "properties": {
+                              "amount": {
+                                "type": "string"
+                              },
+                              "currency": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "amount",
+                              "currency"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "app": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "networks": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "format": "uuid"
+                            }
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "description",
+                          "price",
+                          "app",
+                          "networks",
+                          "createdAt",
+                          "updatedAt"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "networks": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/components/schemas/selectNetworkSchema"
+                            }
+                          }
+                        },
+                        "required": [
+                          "networks"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payment-links/{id}/": {
+      "get": {
+        "tags": [
+          "paymentLinks"
+        ],
+        "description": "This resource is to retrieve information about a single paymentLink.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "price": {
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "type": "string"
+                            },
+                            "currency": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "amount",
+                            "currency"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "app": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "networks": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "format": "uuid"
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "description",
+                        "price",
+                        "app",
+                        "networks",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "networks": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/selectNetworkSchema"
+                          }
+                        }
+                      },
+                      "required": [
+                        "networks"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "paymentLinks"
+        ],
+        "description": "This resource is to update some information about a single paymentLink.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "price": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "string"
+                        },
+                        "currency": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "amount",
+                        "currency"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "networks": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "price",
+                    "app",
+                    "networks",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "paymentLinks"
+        ],
+        "description": "This resource is to delete a single paymentLink.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "price": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "string"
+                        },
+                        "currency": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "amount",
+                        "currency"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "app": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "networks": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uuid"
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "price",
+                    "app",
+                    "networks",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions/": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bytes": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "wallet": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "options": {
+                    "type": "object",
+                    "properties": {
+                      "skipPreflight": {
+                        "type": "boolean"
+                      },
+                      "commitment": {
+                        "type": "string",
+                        "enum": [
+                          "processed",
+                          "confirmed",
+                          "finalized",
+                          "recent",
+                          "single",
+                          "singleGossip",
+                          "root",
+                          "max"
+                        ]
+                      },
+                      "preflightCommitment": {
+                        "$ref": "#/properties/options/properties/commitment"
+                      },
+                      "maxRetries": {
+                        "type": "number"
+                      },
+                      "minContextSlot": {
+                        "type": "number"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "signers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": []
+                  }
+                },
+                "required": [
+                  "bytes",
+                  "wallet"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "signature": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "signature"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

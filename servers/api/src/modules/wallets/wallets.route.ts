@@ -69,11 +69,10 @@ const createWalletRoute = async (
               });
             }
           }
-
-          return {
-            ...(await selectWalletSchema.parseAsync(wallet)),
+          return selectWalletSchema.parseAsync({
+            ...wallet,
             network: { id: network.id, name: network.name },
-          };
+          });
         } else
           throw new RequestError(
             404,
