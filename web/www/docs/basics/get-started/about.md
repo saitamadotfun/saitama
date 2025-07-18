@@ -1,0 +1,1 @@
+Saitama builds authentication, wallet and payment infrastructure to enable better secure products built on crypto rails. Get started in minutes to onboard users with wallets, spin up self-custodial wallets for users, and securely sign transactions through your app. Accept crypto payments with gasless
